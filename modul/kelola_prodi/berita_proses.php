@@ -3,15 +3,15 @@ if (!defined('AKSES_DIIZINKAN')) die("Akses ditolak!");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
+    // 1. Tangkap dan bersihkan inputan form
     $id          = (int)$_POST['id'];
-    $judul       = $koneksi->real_escape_string($_POST['judul']);
-    $isi_berita  = $koneksi->real_escape_string($_POST['isi_berita']);
-    $penulis     = $koneksi->real_escape_string($_POST['penulis']);
-    $gambar_lama = $_POST['gambar_lama'];
-    $tanggal     = date('Y-m-d');
+    $judul       = trim($_POST['judul']);
+    $isi_berita  = trim($_POST['isi_berita']);
+    $penulis     = trim($_POST['penulis']);
+    $tanggal     = trim($_POST['tanggal_publikasi']);
+    $gambar_lama = trim($_POST['gambar_lama']);
     
-    // Keamanan Backend
-// Keamanan Mutlak: Cegah eksploitasi URL
+    // 2. Keamanan Mutlak: Cegah eksploitasi URL
     $allowed_admin = ['admin', 'staf_it_admin', 'operator_sistem'];
     $is_admin = !empty(array_intersect($allowed_admin, $_SESSION['roles'] ?? []));
     
@@ -19,46 +19,84 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die("Hacking Attempt Detected! Akses ditolak. Hanya Admin/IT yang bisa mengupdate data.");
     }
 
-    $gambar_lama = $_POST['gambar_lama'];
-// Sistem baru menangkap dari inputan Form kalender
-$tanggal     = $koneksi->real_escape_string($_POST['tanggal_publikasi']);
+    $nama_file = $gambar_lama;
 
-    // Proses upload gambar
+    // 3. Proses Upload Gambar dengan Keamanan Berlapis
     if (isset($_FILES['file_gambar']) && $_FILES['file_gambar']['error'] == 0) {
-        $ext = strtolower(pathinfo($_FILES['file_gambar']['name'], PATHINFO_EXTENSION));
-        if (in_array($ext, ['jpg', 'jpeg', 'png'])) {
-            $nama_file = 'berita_' . $module_url . '_' . time() . '.' . $ext;
+        
+        $file_tmp  = $_FILES['file_gambar']['tmp_name'];
+        $file_size = $_FILES['file_gambar']['size'];
+        $file_ext  = strtolower(pathinfo($_FILES['file_gambar']['name'], PATHINFO_EXTENSION));
+        
+        // Validasi 1: Ukuran File Maksimal 2 MB
+        if ($file_size > 2097152) {
+            echo "<script>alert('Gagal! Ukuran gambar maksimal 2 MB.'); window.history.back();</script>"; 
+            exit;
+        }
+
+        // Validasi 2: Pengecekan MIME Type Asli (Mencegah Bypass Ekstensi)
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = finfo_file($finfo, $file_tmp);
+        finfo_close($finfo);
+
+        $allowed_mimes = ['image/jpeg', 'image/png', 'image/webp'];
+        $allowed_exts  = ['jpg', 'jpeg', 'png', 'webp'];
+
+        // Cek apakah ekstensi dan MIME type-nya benar-benar gambar
+        if (in_array($mime_type, $allowed_mimes) && in_array($file_ext, $allowed_exts)) {
             
-            if (!is_dir('uploads/prodi/berita')) {
-                mkdir('uploads/prodi/berita', 0777, true);
+            $nama_file = 'berita_' . $module_url . '_' . time() . '.' . $file_ext;
+            $upload_path = 'uploads/prodi/berita/';
+            
+            // Buat folder jika belum ada
+            if (!is_dir($upload_path)) {
+                mkdir($upload_path, 0777, true);
             }
 
-            if (move_uploaded_file($_FILES['file_gambar']['tmp_name'], 'uploads/prodi/berita/' . $nama_file)) {
-                if (!empty($gambar_lama) && file_exists('uploads/prodi/berita/' . $gambar_lama)) {
-                    unlink('uploads/prodi/berita/' . $gambar_lama);
+            if (move_uploaded_file($file_tmp, $upload_path . $nama_file)) {
+                // Hapus gambar lama agar server tidak penuh
+                if (!empty($gambar_lama) && file_exists($upload_path . $gambar_lama)) {
+                    unlink($upload_path . $gambar_lama);
                 }
             }
         } else {
-            echo "<script>alert('Gagal! Format gambar harus JPG/PNG.'); window.history.back();</script>"; exit;
+            echo "<script>alert('Gagal! File terdeteksi berbahaya atau format tidak didukung (Hanya JPG/PNG/WEBP).'); window.history.back();</script>"; 
+            exit;
         }
     }
 
+    // 4. Eksekusi Database menggunakan PREPARED STATEMENTS (Mencegah SQL Injection)
     if ($id > 0) {
-        // UPDATE (Sesuai nama kolom DB Anda)
-        $sql = "UPDATE prodi_berita SET judul='$judul', konten='$isi_berita', gambar_thumbnail='$nama_file' WHERE id='$id'";
-        $pesan = "Berita berhasil diperbarui!";
+        // Mode UPDATE (Edit Berita)
+        $stmt = $koneksi->prepare("UPDATE prodi_berita SET judul=?, konten=?, gambar_thumbnail=?, tanggal_publikasi=? WHERE id=?");
+        
+        if ($stmt) {
+            // ssssi = string, string, string, string, integer
+            $stmt->bind_param("ssssi", $judul, $isi_berita, $nama_file, $tanggal, $id);
+            $pesan = "Data berita berhasil diperbarui!";
+        } else {
+            die("Query Update Error: " . $koneksi->error);
+        }
+        
     } else {
-        // INSERT (Sesuai nama kolom DB Anda)
-        $sql = "INSERT INTO prodi_berita (prodi, judul, konten, penulis, gambar_thumbnail, tanggal_publikasi) 
-                VALUES ('$module_url', '$judul', '$isi_berita', '$penulis', '$nama_file', '$tanggal')";
-        $pesan = "Berita baru berhasil dipublikasikan!";
+        // Mode INSERT (Tambah Berita Baru)
+        $stmt = $koneksi->prepare("INSERT INTO prodi_berita (prodi, judul, konten, penulis, gambar_thumbnail, tanggal_publikasi) VALUES (?, ?, ?, ?, ?, ?)");
+        
+        if ($stmt) {
+            // ssssss = 6 string
+            $stmt->bind_param("ssssss", $module_url, $judul, $isi_berita, $penulis, $nama_file, $tanggal);
+            $pesan = "Berita baru berhasil dipublikasikan!";
+        } else {
+            die("Query Insert Error: " . $koneksi->error);
+        }
     }
     
-    // EKSEKUSI & CEK ERROR
-    if ($koneksi->query($sql)) {
+    // 5. Eksekusi Query dan Lempar Alert
+    if ($stmt->execute()) {
+        $stmt->close();
         echo "<script>alert('$pesan'); window.location='index.php?module=$module_url&act=berita';</script>";
     } else {
-        echo "<script>alert('GAGAL MENYIMPAN KE DATABASE: " . $koneksi->error . "'); window.history.back();</script>";
+        echo "<script>alert('GAGAL MENYIMPAN KE DATABASE: " . $stmt->error . "'); window.history.back();</script>";
     }
 }
 ?>

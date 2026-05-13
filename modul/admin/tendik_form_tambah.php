@@ -19,7 +19,7 @@ if (!defined('AKSES_DIIZINKAN')) die("Akses ditolak!");
 
 <div class="container-xl px-4 mt-4">
     <form action="index.php?module=admin&act=proses_tambah_tendik" method="POST">
-        
+        <input type="hidden" name="csrf_token" value="<?= generateCSRFToken() ?>">
         <!-- CARD 1: INFORMASI PROFIL -->
         <div class="card mb-4">
             <div class="card-header bg-teal text-white">1. Informasi Profil Tendik</div>

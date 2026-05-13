@@ -1,14 +1,10 @@
 <?php
-// logout.php
-
-// 1. Mulai/Lanjutkan sesi untuk mengakses data yang ada saat ini
 session_start();
 
-// 2. Kosongkan semua variabel session array
-$_SESSION = [];
+// 1. Kosongkan semua array sesi
+$_SESSION = array();
 
-// 3. Hapus cookie sesi dari browser (Langkah Keamanan Tambahan)
-// Ini memastikan ID sesi lama tidak bisa digunakan lagi
+// 2. Hancurkan cookie sesi di browser pengguna secara paksa
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000,
@@ -17,12 +13,10 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-// 4. Hancurkan sesi di server
+// 3. Hancurkan sesi di server
 session_destroy();
 
-// 5. Arahkan kembali ke halaman utama
-// Karena session sudah hilang, index.php & content.php otomatis akan 
-// menganggap user sebagai tamu dan menampilkan modul/publik/beranda.php
-header("Location: index.php?module=beranda");
+// 4. Arahkan kembali ke halaman login
+header("Location: login.php");
 exit;
 ?>

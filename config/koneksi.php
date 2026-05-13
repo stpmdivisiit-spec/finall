@@ -15,7 +15,13 @@ if ($koneksi->connect_error) {
     die("Connection failed: " . $koneksi->connect_error);
 }
 
+
+
 // Opsional: Set charset
 $koneksi->set_charset("utf8mb4");
+
+// INCLUDE FUNGSI GLOBAL & KEAMANAN
+require_once 'functions.php';
+?>
 
 ?>

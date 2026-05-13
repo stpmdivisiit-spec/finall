@@ -66,7 +66,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             }
 
-            // Password Benar & Punya Role: Daftarkan semua ke Session
+// Password Benar & Punya Role: Daftarkan semua ke Session
+            
+            // KEAMANAN: Regenerasi ID Sesi untuk mencegah pembajakan sesi (Session Fixation)
+            session_regenerate_id(true); 
+            
             $_SESSION['user_id']       = $user['id'];
             $_SESSION['username']      = $user['username'];
             $_SESSION['nama_lengkap']  = $user['nama_lengkap']; // Berguna untuk ditampilkan di pojok kanan atas

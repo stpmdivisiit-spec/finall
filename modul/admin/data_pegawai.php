@@ -155,6 +155,15 @@ $resultTendik = $koneksi->query($queryTendik);
                                     <td>
                                         <a href="index.php?module=admin&act=edit_pegawai&id=<?= $row['id'] ?>" class="btn btn-datatable btn-icon btn-transparent-dark me-2" title="Edit Tendik"><i data-feather="edit"></i></a>
                                         <a href="index.php?module=admin&act=hapus_pegawai&id=<?= $row['id'] ?>" class="btn btn-datatable btn-icon btn-transparent-dark text-danger" title="Hapus Tendik" onclick="return confirm('Yakin ingin menghapus data Tendik ini?');"><i data-feather="trash-2"></i></a>
+<form action="index.php?module=admin&act=proses_hapus_pegawai" method="POST" class="d-inline">
+    <input type="hidden" name="csrf_token" value="<?= generateCSRFToken() ?>">
+    <input type="hidden" name="user_id" value="<?= $row['user_id_asli'] ?? $row['user_id'] ?>">
+    
+    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('PERINGATAN: Yakin ingin menghapus pegawai ini? Semua data terkait (biodata, hak akses) akan ikut terhapus permanen!')" title="Hapus Permanen">
+        <i data-feather="trash-2"></i> Hapus
+    </button>
+</form>
+                                    
                                     </td>
                                 </tr>
                                 <?php endwhile; ?>
