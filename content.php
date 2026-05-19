@@ -60,10 +60,11 @@ if (!isset($_SESSION['roles']) || empty($_SESSION['roles'])) {
         
         'staf_kemahasiswaan'      => 'kemahasiswaan',
         'staf_dosen'              => 'sekretariat',
+        'kalender_admin'          => 'kalender_crud_admin',
     ];
 
     $user_roles = $_SESSION['roles']; 
-    $is_admin   = in_array('admin', $user_roles) || in_array('operator_sistem', $user_roles) || in_array('staf_it_admin', $user_roles);
+    $is_super_admin = in_array('admin', $user_roles) || in_array('operator_sistem', $user_roles) || in_array('staf_it_admin', $user_roles);
 
     // 2. TENTUKAN FOLDER YANG BOLEH DIAKSES USER INI
     $allowed_folders = [];
@@ -82,27 +83,25 @@ if (!isset($_SESSION['roles']) || empty($_SESSION['roles'])) {
     // Folder default saat baru login
     $user_default_folder = $allowed_folders[0];
 
-    // 3. === TRIK LOGIKA URL SUPER BERSIH (DYNAMIC PRODI) ===
+    // 3. === LOGIKA URL MAPPING (DYNAMIC PRODI & KALENDER) ===
     $url_segment = $_GET['module'] ?? '';
     
-    // Virtual Mapping: Jika URL adalah prodi_xxx, arahkan ke folder fisik 'kelola_prodi'
+    // Virtual Mapping: Menghubungkan nama module URL ke nama folder fisik asli di dalam direktori
     $virtual_modules = [
         'prodi_pemerintahan' => 'kelola_prodi',
-        'prodi_sosiatri'     => 'kelola_prodi'
+        'prodi_sosiatri'     => 'kelola_prodi',
+        'kalender_admin'     => 'kalender_crud_admin' // FIX: Mencegah error 404 pada modul kalender akademik backend
     ];
     
     // Cek apakah URL ada di Virtual Mapping, jika tidak pakai URL aslinya
     $physical_folder = $virtual_modules[$url_segment] ?? $url_segment;
     $target_folder = '';
 
-    // --- PERBAIKAN ERROR DI SINI: Pindahkan pengecekan admin ke atas ---
-    $is_super_admin = in_array('admin', $user_roles) || in_array('operator_sistem', $user_roles) || in_array('staf_it_admin', $user_roles);
-
     // Skenario A: URL Kosong (Dashboard Default)
     if (empty($url_segment)) {
         $target_folder = $user_default_folder;
     } 
-    // Skenario B: URL Valid dan Folder Tersedia (Admin Bebas Masuk folder prodi)
+    // Skenario B: URL Valid dan Folder Tersedia
     elseif (is_dir("modul/" . $physical_folder) && ($is_super_admin || in_array($physical_folder, $allowed_folders))) {
         $target_folder = $physical_folder;
     }

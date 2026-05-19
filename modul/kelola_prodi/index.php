@@ -65,10 +65,64 @@ switch ($act) {
     case 'proses_profil_dosen_desc':
         if (file_exists('modul/kelola_prodi/profil_dosen_desc_proses.php')) include 'modul/kelola_prodi/profil_dosen_desc_proses.php';
         break;
-
-    case 'akreditasi':
-        if (file_exists('modul/kelola_prodi/akreditasi_data.php')) include 'modul/kelola_prodi/akreditasi_data.php';
+    // ==========================================
+    // 3. PROSES PROFIL DOSEN (UPLOAD FOTO + JABATAN + KEAHLIAN)
+    // ==========================================
+    case 'proses_profil_dosen':
+        include "modul/kelola_prodi/proses_profil_dosen.php";
         break;
+    // ==========================================
+    // 3. PROSES PROFIL DOSEN (UPLOAD FOTO + JABATAN + KEAHLIAN)
+    // ==========================================
+    
+// --- AKREDITASI (DIPERBAIKI) ---
+    case 'akreditasi':
+        include 'modul/kelola_prodi/akreditasi_data.php';
+        break;
+    case 'akreditasi_form':
+        include 'modul/kelola_prodi/akreditasi_form.php';
+        break;
+    case 'akreditasi_proses':
+        include 'modul/kelola_prodi/akreditasi_proses.php';
+        break;
+
+// =========================================================================
+        // ROUTE BACK-END: KELOLA AKREDITASI (DYNAMIC MULTI-PRODI)
+        // =========================================================================
+        case 'prodi_pemerintahan':
+        case 'prodi_sosiatri':
+            // Ambil sub-action (Default: menampilkan halaman list data akreditasi)
+            $act = isset($_GET['act']) ? $_GET['act'] : 'akreditasi';
+
+            switch ($act) {
+                // 1. Tampilan Halaman Utama / Tabel Data Akreditasi
+                case 'akreditasi':
+                    if (file_exists("modul/kelola_prodi/akreditasi_data.php")) {
+                        include "modul/kelola_prodi/akreditasi_data.php";
+                    } else {
+                        echo "<div class='alert alert-danger m-4'><i class='fas fa-exclamation-triangle me-2'></i>Error: File <strong>modul/kelola_prodi/akreditasi_data.php</strong> tidak ditemukan!</div>";
+                    }
+                    break;
+
+                // 2. Tampilan Form Tambah atau Edit Data
+                case 'akreditasi_form':
+                    if (file_exists("modul/kelola_prodi/akreditasi_form.php")) {
+                        include "modul/kelola_prodi/akreditasi_form.php";
+                    } else {
+                        echo "<div class='alert alert-danger m-4'><i class='fas fa-exclamation-triangle me-2'></i>Error: File <strong>modul/kelola_prodi/akreditasi_form.php</strong> tidak ditemukan!</div>";
+                    }
+                    break;
+
+                // 3. Eksekusi Proses Query Simpan (Insert / Update) ke Database
+                case 'akreditasi_proses':
+                    if (file_exists("modul/kelola_prodi/akreditasi_proses.php")) {
+                        include "modul/kelola_prodi/akreditasi_proses.php";
+                    } else {
+                        echo "<div class='alert alert-danger m-4'><i class='fas fa-exclamation-triangle me-2'></i>Error: File <strong>modul/kelola_prodi/akreditasi_proses.php</strong> tidak ditemukan!</div>";
+                    }
+                    break;
+            }
+            break;
 
     // ==========================================
     // 3. MANAJEMEN AKADEMIK

@@ -18,6 +18,11 @@ $is_dosen_sos   = in_array('dosen_sosiatri', $user_roles) || in_array('staf_prod
 
     <?php if (!empty($user_roles)): ?>
         
+        <a class="nav-link <?php echo ($mod == 'kalender_admin') ? 'active' : ''; ?>" href="index.php?module=kalender_admin">
+            <div class="nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
+            Kalender Akademik
+        </a>
+
         <?php if ($is_super_admin): ?>
             <?php if (file_exists('modul/menu_partials/menu_admin.php')) include 'modul/menu_partials/menu_admin.php'; ?>
             
@@ -26,18 +31,17 @@ $is_dosen_sos   = in_array('dosen_sosiatri', $user_roles) || in_array('staf_prod
             <?php 
                 $nama_prodi = "Ilmu Pemerintahan";
                 $link_prodi = "prodi_pemerintahan";
-                $collapse_id = "collapsePem"; // ID unik agar tidak bentrok
+                $collapse_id = "collapsePem"; 
                 include 'modul/menu_partials/menu_prodi_dinamis.php'; 
             ?>
             
             <?php 
                 $nama_prodi = "Pembangunan Sosial";
                 $link_prodi = "prodi_sosiatri";
-                $collapse_id = "collapseSos"; // ID unik agar tidak bentrok
+                $collapse_id = "collapseSos"; 
                 include 'modul/menu_partials/menu_prodi_dinamis.php'; 
             ?>
         <?php endif; ?>
-
 
         <?php if ($is_dosen_pem && !$is_super_admin): ?>
             <div class="sidenav-menu-heading">Kelola Program Studi</div>
@@ -49,7 +53,6 @@ $is_dosen_sos   = in_array('dosen_sosiatri', $user_roles) || in_array('staf_prod
             ?>
         <?php endif; ?>
 
-
         <?php if ($is_dosen_sos && !$is_super_admin): ?>
             <div class="sidenav-menu-heading">Kelola Program Studi</div>
             <?php 
@@ -59,7 +62,6 @@ $is_dosen_sos   = in_array('dosen_sosiatri', $user_roles) || in_array('staf_prod
                 include 'modul/menu_partials/menu_prodi_dinamis.php'; 
             ?>
         <?php endif; ?>
-
 
         <?php 
         if (in_array('staf_lp2m', $user_roles) || $is_super_admin): 

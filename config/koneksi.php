@@ -23,5 +23,3 @@ $koneksi->set_charset("utf8mb4");
 // INCLUDE FUNGSI GLOBAL & KEAMANAN
 require_once 'functions.php';
 ?>
-
-?>
