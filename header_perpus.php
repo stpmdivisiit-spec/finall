@@ -45,7 +45,7 @@
                     
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['perpus_profil_tentang', 'perpus_profil_vmt', 'perpus_profil_layanan', 'perpus_profil_fasilitas']) ? 'active fw-bold text-teal' : 'text-dark' ?>" id="navProfilPerpus" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Profil <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Profil 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navProfilPerpus">
                             <a class="dropdown-item <?= ($mod=='perpus_profil_tentang') ? 'active bg-teal text-white' : '' ?>" href="/FINAL/index.php?module=perpus_profil_tentang">Tentang Perpustakaan</a>
@@ -57,7 +57,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['perpus_layanan_sirkulasi', 'perpus_layanan_bebas', 'perpus_layanan_referensi', 'perpus_layanan_usulan']) ? 'active fw-bold text-teal' : 'text-dark' ?>" id="navLayananPerpus" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Layanan <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Layanan 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navLayananPerpus">
                             <a class="dropdown-item <?= ($mod=='perpus_layanan_sirkulasi') ? 'active bg-teal text-white' : '' ?>" href="/FINAL/index.php?module=perpus_layanan_sirkulasi" style="<?= ($mod=='perpus_layanan_sirkulasi') ? 'background-color: #20c997;' : '' ?>">Sirkulasi (Pinjam/Kembali)</a>
@@ -69,7 +69,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['perpus_koleksi_opac', 'perpus_koleksi_ebook', 'perpus_koleksi_repo', 'perpus_koleksi_berkala']) ? 'active fw-bold text-teal' : 'text-dark' ?>" id="navKoleksi" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Koleksi <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Koleksi 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navKoleksi">
                             <a class="dropdown-item <?= ($mod=='perpus_koleksi_opac') ? 'active bg-teal text-white' : '' ?>" href="/FINAL/index.php?module=perpus_koleksi_opac" style="<?= ($mod=='perpus_koleksi_opac') ? 'background-color: #20c997;' : '' ?>">Katalog Online (OPAC)</a>
@@ -81,7 +81,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['perpus_anggota_daftar', 'perpus_anggota_panduan', 'perpus_anggota_status']) ? 'active fw-bold text-teal' : 'text-dark' ?>" id="navKeanggotaan" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Keanggotaan <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Keanggotaan 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navKeanggotaan">
                             <a class="dropdown-item <?= ($mod=='perpus_anggota_daftar') ? 'active bg-teal text-white' : '' ?>" href="/FINAL/index.php?module=perpus_anggota_daftar" style="<?= ($mod=='perpus_anggota_daftar') ? 'background-color: #20c997;' : '' ?>">Pendaftaran Anggota</a>
@@ -92,7 +92,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['perpus_info_berita', 'perpus_info_acara', 'perpus_info_galeri']) ? 'active fw-bold text-teal' : 'text-dark' ?>" id="navInfoPerpus" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Informasi <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Informasi 
                         </a>
                         <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navInfoPerpus">
                             <a class="dropdown-item <?= ($mod=='perpus_info_berita') ? 'active bg-teal text-white' : '' ?>" href="/FINAL/index.php?module=perpus_info_berita" style="<?= ($mod=='perpus_info_berita') ? 'background-color: #20c997;' : '' ?>">Berita Perpustakaan</a>

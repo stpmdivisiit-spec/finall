@@ -1,3 +1,4 @@
+<!-- C:\xampp\htdocs\FINAL\header.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -14,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css">
-
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         /* CSS Khusus Front-End */
         body { background-color: #f2f6fc; }
@@ -45,7 +46,7 @@
                 
                 <li class="nav-item dropdown no-caret">
                     <a class="nav-link dropdown-toggle <?= ($mod=='sejarah' || $mod=='visi_misi' || $mod=='struktur_organisasi') ? 'active text-primary' : 'text-dark' ?>" id="navbarDropdownProfil" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Profil <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                        Profil 
                     </a>
                     <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownProfil">
                         <a class="dropdown-item <?= ($mod=='sejarah') ? 'active' : '' ?>" href="/FINAL/index.php?module=sejarah">Sejarah</a>
@@ -56,7 +57,7 @@
                 
 <li class="nav-item dropdown no-caret">
     <a class="nav-link dropdown-toggle <?= ($mod=='sosiatri' || $mod=='pemerintahan' || $mod=='kalender') ? 'active text-primary' : 'text-dark' ?>" id="navbarDropdownAkademik" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Akademik <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+        Akademik 
     </a>
     <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownAkademik">
         <a class="dropdown-item <?= ($mod=='sosiatri') ? 'active' : '' ?>" href="/FINAL/index.php?module=sosiatri">Ilmu Sosiatri</a>
@@ -74,7 +75,7 @@
                 
                 <li class="nav-item dropdown no-caret">
                     <a class="nav-link dropdown-toggle <?= ($mod=='lpm' || $mod=='lp2m' || $mod=='sekretariat' || $mod=='perpus') ? 'active text-primary' : 'text-dark' ?>" id="navbarDropdownLembaga" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Lembaga & Unit <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                        Lembaga & Unit 
                     </a>
                     <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownLembaga">
                         <h6 class="dropdown-header text-primary fw-bold">Lembaga</h6>
@@ -87,19 +88,96 @@
                     </div>
                 </li>
                 
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="/FINAL/index.php#berita">Berita</a>
-                </li>
+
                 
                 <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
-                    <a class="btn btn-primary rounded-pill px-4 shadow-sm" href="https://stpmsantaursula.siakadcloud.com/gate/login" target="_blank">
-                        SIAKAD Login
-                    </a>
+                        <!-- TOMBOL PEMICU MODAL LOGIN -->
+                        <button type="button" class="btn btn-primary px-4 rounded-pill fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login
+                        </button>
                 </li>
+
+
             </ul>
         </div>
     </div>
 </nav>
 
+
+    <!-- ========================================== -->
+    <!-- MODAL LOGIN TERPUSAT -->
+    <!-- ========================================== -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="modal-header bg-primary text-white border-0 py-3">
+                    <h5 class="modal-title fw-bold" id="loginModalLabel"><i class="fas fa-lock me-2"></i> Otorisasi Pengguna</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 p-md-5 bg-light">
+                    <div class="text-center mb-4">
+                        <img src="/FINAL/assets/img/illustrations/windows.svg" style="width: 120px;" class="mb-3">
+                        <p class="text-muted small">Gerbang login khusus civitas akademika STPM Santa Ursula (Dosen, Tendik, dan Admin).</p>
+                    </div>
+
+                    <!-- Tempat Pesan Error -->
+                    <?php 
+                        if (isset($_GET['error'])) {
+                            echo '<div class="alert alert-danger alert-icon border-start-lg border-start-danger mb-4 shadow-sm" role="alert">
+                                    <div class="alert-icon-content"><i class="fas fa-exclamation-triangle"></i></div>
+                                    <div class="alert-content small fw-bold">';
+                            if ($_GET['error'] == 'pass') echo 'Kata sandi yang Anda masukkan salah!';
+                            elseif ($_GET['error'] == 'user') echo 'Alamat email tidak terdaftar!';
+                            elseif ($_GET['error'] == 'empty') echo 'Harap isi kolom email dan kata sandi!';
+                            elseif ($_GET['error'] == 'banned') echo 'Akun Anda sedang dinonaktifkan!';
+                            echo '</div></div>';
+                        }
+                    ?>
+
+                    <form action="login.php" method="POST">
+                        <div class="form-floating mb-3">
+                            <input class="form-control rounded-3" id="inputEmail" name="email" type="email" placeholder="name@example.com" required />
+                            <label for="inputEmail"><i class="fas fa-envelope text-muted me-2"></i>Alamat Email Akun</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control rounded-3" id="inputPassword" name="password" type="password" placeholder="Password" required />
+                            <label for="inputPassword"><i class="fas fa-key text-muted me-2"></i>Kata Sandi</label>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-4 mt-3">
+                            <div class="form-check">
+                                <input class="form-check-input" id="rememberMe" type="checkbox" />
+                                <label class="form-check-label text-muted small" for="rememberMe">Ingat saya</label>
+                            </div>
+                            <a class="small text-decoration-none fw-bold" href="#">Lupa Sandi?</a>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg shadow-sm rounded-pill fw-bold">Masuk ke Dasbor</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Pembuka Modal Otomatis Jika Ada Error -->
+    <?php if(isset($_GET['error'])): ?>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+            loginModal.show();
+        });
+    </script>
+    <?php endif; ?>
+
+
+
+
+
+
 <div id="layoutSidenav">
     <div id="layoutSidenav_content">
+
+
+
+
+

@@ -9,17 +9,24 @@
     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
         
         <a class="nav-link" href="index.php?module=admin&act=data_pegawai">
-            Data Pegawai
+            Data Pegawai & Dosen
             <span class="badge bg-primary-soft text-primary ms-auto">Updated</span>
         </a>
 
-        <a class="nav-link" href="index.php?module=admin&act=data_dosen">
-             Dosen
+        <a class="nav-link" href="index.php?module=admin&act=sejarah_lembaga">
+            Sejarah Lembaga
+        </a>
+       <!-- Struktur Organisasi lembaga dibawah ini-->
+        <a class="nav-link" href="index.php?module=admin&act=struktur_organisasi_lembaga">
+            Struktur Organisasi Lembaga
         </a>
 
-        <a class="nav-link" href="index.php?module=admin&act=settings">
-            Settingss
+
+        <!-- visi dan misi dibawah ini-->
+        <a class="nav-link" href="index.php?module=admin&act=visi_misi_lembaga">
+            Visi & Misi
         </a>
+
 
     </nav>
 </div>

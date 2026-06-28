@@ -46,7 +46,7 @@
                     
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['kema_profil', 'kema_beasiswa', 'kema_konseling', 'kema_kesehatan', 'kema_karir', 'kema_pengaduan']) ? 'active text-danger' : 'text-dark' ?>" id="navLayanan" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Layanan <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Layanan 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navLayanan">
                             <a class="dropdown-item <?= ($mod=='kema_profil') ? 'active bg-danger text-white fw-bold' : 'fw-bold text-danger' ?>" href="/FINAL/index.php?module=kema_profil">Profil Kemahasiswaan</a>
@@ -61,7 +61,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['kema_bem', 'kema_hima', 'kema_ukm', 'kema_lkmm', 'kema_agenda']) ? 'active text-danger' : 'text-dark' ?>" id="navOrmawa" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            ORMAWA <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            ORMAWA 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navOrmawa">
                             <a class="dropdown-item <?= ($mod=='kema_bem') ? 'active' : '' ?>" href="/FINAL/index.php?module=kema_bem">BEM & BLM</a>
@@ -75,7 +75,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['kema_pres_akademik', 'kema_pres_nonakademik', 'kema_pres_penghargaan']) ? 'active text-danger' : 'text-dark' ?>" id="navPrestasi" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Prestasi <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Prestasi 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navPrestasi">
                             <a class="dropdown-item <?= ($mod=='kema_pres_akademik') ? 'active' : '' ?>" href="/FINAL/index.php?module=kema_pres_akademik">Akademik</a>
@@ -86,7 +86,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['kema_alumni_profil', 'kema_alumni_testimoni', 'kema_alumni_tracer', 'kema_alumni_forum']) ? 'active text-danger' : 'text-dark' ?>" id="navTracer" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Alumni <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Alumni 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navTracer">
                             <a class="dropdown-item <?= ($mod=='kema_alumni_profil') ? 'active' : '' ?>" href="/FINAL/index.php?module=kema_alumni_profil">Profil Alumni</a>
@@ -98,7 +98,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['kema_wirausaha_program', 'kema_wirausaha_inovasi', 'kema_wirausaha_bisnis']) ? 'active text-danger' : 'text-dark' ?>" id="navWirausaha" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Wirausaha <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Wirausaha 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navWirausaha">
                             <a class="dropdown-item <?= ($mod=='kema_wirausaha_program') ? 'active' : '' ?>" href="/FINAL/index.php?module=kema_wirausaha_program">Program Mahasiswa</a>
@@ -109,7 +109,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['kema_pelatihan_karakter', 'kema_pelatihan_karier', 'kema_pelatihan_digital']) ? 'active text-danger' : 'text-dark' ?>" id="navPelatihan" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Pelatihan <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Pelatihan 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navPelatihan">
                             <a class="dropdown-item <?= ($mod=='kema_pelatihan_karakter') ? 'active' : '' ?>" href="/FINAL/index.php?module=kema_pelatihan_karakter">Pelatihan Karakter (Serviam)</a>
@@ -120,7 +120,7 @@
 
       <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['kema_pengabdian_baksos', 'kema_pengabdian_desa', 'kema_pengabdian_relawan']) ? 'active text-danger' : 'text-dark' ?>" id="navPengabdian" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Pengabdian <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Pengabdian 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navPengabdian">
                             <a class="dropdown-item <?= ($mod=='kema_pengabdian_baksos') ? 'active' : '' ?>" href="/FINAL/index.php?module=kema_pengabdian_baksos">Bakti Sosial</a>
@@ -131,7 +131,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['kema_dok_pedoman', 'kema_dok_ormawa', 'kema_dok_laporan', 'kema_dok_sop']) ? 'active text-danger' : 'text-dark' ?>" id="navDokumen" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dokumen <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Dokumen 
                         </a>
                         <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navDokumen">
                             <a class="dropdown-item <?= ($mod=='kema_dok_pedoman') ? 'active' : '' ?>" href="/FINAL/index.php?module=kema_dok_pedoman">Buku Pedoman</a>

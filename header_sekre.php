@@ -1,3 +1,4 @@
+<!-- C:\xampp\htdocs\FINAL\header_sekre.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -45,7 +46,7 @@
                     
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['sekre_profil_tupoksi', 'sekre_profil_struktur', 'sekre_profil_layanan']) ? 'active fw-bold text-dark' : 'text-dark' ?>" id="navProfilSekre" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Profil <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Profil
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navProfilSekre">
                             <a class="dropdown-item <?= ($mod=='sekre_profil_tupoksi') ? 'active bg-secondary text-white' : '' ?>" href="/FINAL/index.php?module=sekre_profil_tupoksi">Tugas Pokok & Fungsi</a>
@@ -56,7 +57,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['sekre_layanan_surat', 'sekre_layanan_legalisir', 'sekre_layanan_fasilitas', 'sekre_layanan_status']) ? 'active fw-bold text-dark' : 'text-dark' ?>" id="navLayananSekre" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Layanan <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Layanan
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navLayananSekre">
                             <a class="dropdown-item <?= ($mod=='sekre_layanan_surat') ? 'active bg-secondary text-white' : '' ?>" href="/FINAL/index.php?module=sekre_layanan_surat">Pengajuan Surat Keterangan</a>
@@ -68,7 +69,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['sekre_info_pengumuman', 'sekre_info_agenda_pimpinan', 'sekre_info_kalender', 'sekre_info_berita']) ? 'active fw-bold text-dark' : 'text-dark' ?>" id="navInfoSekre" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Informasi <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Informasi
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navInfoSekre">
                             <a class="dropdown-item <?= ($mod=='sekre_info_pengumuman') ? 'active bg-secondary text-white' : '' ?>" href="/FINAL/index.php?module=sekre_info_pengumuman">Pengumuman Kampus</a>
@@ -80,7 +81,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['sekre_dok_sk', 'sekre_dok_peraturan', 'sekre_dok_pedoman', 'sekre_dok_formulir']) ? 'active fw-bold text-dark' : 'text-dark' ?>" id="navRegulasiSekre" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dokumen & Regulasi <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Dokumen & Regulasi
                         </a>
                         <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navRegulasiSekre">
                             <a class="dropdown-item <?= ($mod=='sekre_dok_sk') ? 'active bg-secondary text-white' : '' ?>" href="/FINAL/index.php?module=sekre_dok_sk">SK Ketua STPM</a>

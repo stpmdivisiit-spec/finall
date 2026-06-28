@@ -46,7 +46,7 @@
                     
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['ip_visi_misi', 'ip_tujuan_cpl', 'ip_struktur', 'ip_dosen', 'ip_akreditasi', 'ip_sejarah']) ? 'active text-primary' : 'text-dark' ?>" id="navProfilIP" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Profil <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Profil 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navProfilIP">
                             <a class="dropdown-item <?= ($mod=='ip_visi_misi')?'active':'' ?>" href="/FINAL/index.php?module=ip_visi_misi">Visi & Misi Prodi</a>
@@ -60,7 +60,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['ip_kurikulum', 'ip_jadwal', 'ip_buku_akademik', 'ip_panduan_skripsi']) ? 'active text-primary' : 'text-dark' ?>" id="navAkademikIP" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Akademik <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Akademik 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navAkademikIP">
                             <a class="dropdown-item <?= ($mod=='ip_kurikulum')?'active':'' ?>" href="/FINAL/index.php?module=ip_kurikulum">Kurikulum</a>
@@ -74,7 +74,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['ip_penelitian_dosen', 'ip_riset_mahasiswa', 'ip_abdimas', 'ip_jurnal', 'ip_galeri']) ? 'active text-primary' : 'text-dark' ?>" id="navRisetIP" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Riset & Abdimas <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Riset & Abdimas 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navRisetIP">
                             <a class="dropdown-item <?= ($mod=='ip_penelitian_dosen')?'active':'' ?>" href="/FINAL/index.php?module=ip_penelitian_dosen">Penelitian Dosen</a>
@@ -87,7 +87,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['ip_hmps', 'ip_prestasi', 'ip_kegiatan', 'ip_tracer']) ? 'active text-primary' : 'text-dark' ?>" id="navKemaIP" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Mahasiswa <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Mahasiswa 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navKemaIP">
                             <a class="dropdown-item <?= ($mod=='ip_hmps')?'active':'' ?>" href="/FINAL/index.php?module=ip_hmps">HMPS</a>
@@ -99,7 +99,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['ip_mitra_pemdesa', 'ip_mitra_sosial', 'ip_mitra_mbkm', 'ip_mitra_riset']) ? 'active text-primary' : 'text-dark' ?>" id="navMitraIP" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Mitra <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Mitra 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navMitraIP">
                             <a class="dropdown-item <?= ($mod=='ip_mitra_pemdesa')?'active':'' ?>" href="/FINAL/index.php?module=ip_mitra_pemdesa">Pemerintah & Desa</a>
@@ -111,7 +111,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['ip_berita_artikel', 'ip_berita_seminar', 'ip_berita_pengumuman', 'ip_berita_agenda']) ? 'active text-primary' : 'text-dark' ?>" id="navBeritaIP" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Berita <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Berita 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navBeritaIP">
                             <a class="dropdown-item <?= ($mod=='ip_berita_artikel')?'active':'' ?>" href="/FINAL/index.php?module=ip_berita_artikel">Artikel & Berita</a>
@@ -123,7 +123,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['ip_dok_skripsi', 'ip_dok_panduan', 'ip_dok_laporan', 'ip_dok_sop']) ? 'active text-primary' : 'text-dark' ?>" id="navDokumenIP" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dokumen <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Dokumen 
                         </a>
                         <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navDokumenIP">
                             <a class="dropdown-item <?= ($mod=='ip_dok_skripsi')?'active':'' ?>" href="/FINAL/index.php?module=ip_dok_skripsi">Pedoman Skripsi</a>

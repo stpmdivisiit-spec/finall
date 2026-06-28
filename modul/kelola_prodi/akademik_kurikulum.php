@@ -1,81 +1,131 @@
 <?php
 if (!defined('AKSES_DIIZINKAN')) die("Akses ditolak!");
-$prodi = 'pemerintahan';
-$query = $koneksi->query("SELECT * FROM prodi_kurikulum WHERE prodi = '$prodi' ORDER BY semester ASC, nama_mk ASC");
+
+// 1. DETEKSI PRODI
+$mod_aktif = isset($_GET['module']) ? $_GET['module'] : '';
+if ($mod_aktif == 'prodi_sosiatri') {
+    $prodi = 'sosiatri';
+    $nama_prodi = 'Pembangunan Sosial (Sosiatri)';
+    $bg_color = 'bg-success';
+    $btn_color = 'btn-success';
+} else {
+    $prodi = 'pemerintahan';
+    $nama_prodi = 'Ilmu Pemerintahan';
+    $bg_color = 'bg-primary';
+    $btn_color = 'btn-primary';
+}
+
+// 2. AMBIL DATA KURIKULUM (Diurutkan berdasarkan semester lalu nama mk)
+$query = $koneksi->query("SELECT * FROM prodi_kurikulum WHERE prodi = '$prodi' ORDER BY semester ASC, jenis_mk DESC, nama_mk ASC");
 ?>
+
+<header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+    <div class="container-xl px-4">
+        <div class="page-header-content">
+            <div class="row align-items-center pt-3">
+                <div class="col-auto mb-3">
+                    <h1 class="page-header-title">
+                        <div class="page-header-icon"><i data-feather="book-open"></i></div>
+                        Kelola Kurikulum OBE - <?= $nama_prodi ?>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
 <div class="container-xl px-4 mt-4">
     <div class="row">
-        <!-- FORM TAMBAH -->
         <div class="col-lg-4 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">Tambah Mata Kuliah</div>
-                <div class="card-body">
-                    <form action="index.php?module=prodi_pemerintahan&act=proses_kurikulum" method="POST">
+            <div class="card shadow-sm border-0">
+                <div class="card-header <?= $bg_color ?> text-white">
+                    <i class="fas fa-plus-circle me-2"></i> Tambah Mata Kuliah
+                </div>
+                <div class="card-body bg-light">
+                    <form action="index.php?module=<?= $mod_aktif ?>&act=proses_kurikulum" method="POST">
                         <input type="hidden" name="prodi" value="<?= $prodi ?>">
+                        <input type="hidden" name="redirect_module" value="<?= $mod_aktif ?>">
                         
                         <div class="mb-3">
-                            <label class="small mb-1">Semester</label>
-                            <input class="form-control" name="semester" type="number" min="1" max="8" required>
+                            <label class="form-label fw-bold text-dark">Pilih Semester <span class="text-danger">*</span></label>
+                            <select class="form-select" name="semester" required>
+                                <option value="">-- Semester --</option>
+                                <?php for($i=1; $i<=8; $i++): ?>
+                                    <option value="<?= $i ?>">Semester <?= $i ?></option>
+                                <?php endfor; ?>
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1">Kode MK</label>
-                            <input class="form-control" name="kode_mk" type="text" required>
+                            <label class="form-label fw-bold text-dark">Kode MK <span class="text-danger">*</span></label>
+                            <input class="form-control" name="kode_mk" type="text" placeholder="Contoh: UNI101" required>
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1">Nama Mata Kuliah</label>
-                            <input class="form-control" name="nama_mk" type="text" required>
+                            <label class="form-label fw-bold text-dark">Nama Mata Kuliah <span class="text-danger">*</span></label>
+                            <input class="form-control" name="nama_mk" type="text" placeholder="Contoh: Pendidikan Agama Katolik" required>
                         </div>
                         <div class="row gx-3 mb-3">
                             <div class="col-md-6">
-                                <label class="small mb-1">SKS</label>
-                                <input class="form-control" name="sks" type="number" min="1" max="6" required>
+                                <label class="form-label fw-bold text-dark">Bobot SKS <span class="text-danger">*</span></label>
+                                <input class="form-control" name="sks" type="number" min="1" max="6" value="3" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="small mb-1">Jenis</label>
-                                <select class="form-control" name="jenis_mk">
+                                <label class="form-label fw-bold text-dark">Sifat MK <span class="text-danger">*</span></label>
+                                <select class="form-select" name="jenis_mk">
                                     <option value="Wajib">Wajib</option>
                                     <option value="Pilihan">Pilihan</option>
                                 </select>
                             </div>
                         </div>
-                        <button class="btn btn-primary w-100" type="submit">Simpan MK</button>
+                        <button class="btn <?= $btn_color ?> w-100 rounded-pill fw-bold" type="submit">Simpan Mata Kuliah</button>
                     </form>
                 </div>
             </div>
         </div>
 
-        <!-- TABEL DATA -->
         <div class="col-lg-8 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-header bg-dark text-white">Data Kurikulum</div>
-                <div class="card-body">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Smt</th>
-                                <th>Kode</th>
-                                <th>Mata Kuliah</th>
-                                <th>SKS</th>
-                                <th>Jenis</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php while($row = $query->fetch_assoc()): ?>
-                            <tr>
-                                <td><?= $row['semester'] ?></td>
-                                <td><?= $row['kode_mk'] ?></td>
-                                <td><?= $row['nama_mk'] ?></td>
-                                <td><?= $row['sks'] ?></td>
-                                <td><?= $row['jenis_mk'] ?></td>
-                                <td>
-                                    <a href="index.php?module=prodi_pemerintahan&act=hapus_kurikulum&id=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus MK ini?')"><i data-feather="trash-2"></i></a>
-                                </td>
-                            </tr>
-                            <?php endwhile; ?>
-                        </tbody>
-                    </table>
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white">
+                    <i class="fas fa-list me-2"></i> Daftar Mata Kuliah
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover mb-0">
+                            <thead class="bg-light text-dark">
+                                <tr>
+                                    <th class="text-center">Smt</th>
+                                    <th>Kode</th>
+                                    <th>Mata Kuliah</th>
+                                    <th class="text-center">SKS</th>
+                                    <th class="text-center">Sifat</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if($query->num_rows > 0): ?>
+                                    <?php while($row = $query->fetch_assoc()): ?>
+                                    <tr>
+                                        <td class="text-center fw-bold text-primary"><?= $row['semester'] ?></td>
+                                        <td class="fw-bold"><?= htmlspecialchars($row['kode_mk']) ?></td>
+                                        <td><?= htmlspecialchars($row['nama_mk']) ?></td>
+                                        <td class="text-center"><?= $row['sks'] ?></td>
+                                        <td class="text-center">
+                                            <?php if($row['jenis_mk'] == 'Wajib'): ?>
+                                                <span class="badge bg-success">Wajib</span>
+                                            <?php else: ?>
+                                                <span class="badge bg-warning text-dark">Pilihan</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="index.php?module=<?= $mod_aktif ?>&act=hapus_kurikulum&id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Yakin ingin menghapus MK ini dari kurikulum?')"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                    <?php endwhile; ?>
+                                <?php else: ?>
+                                    <tr><td colspan="6" class="text-center py-4 text-muted">Belum ada mata kuliah yang diinputkan.</td></tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

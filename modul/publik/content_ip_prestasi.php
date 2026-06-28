@@ -1,61 +1,35 @@
+<?php
+$query = $koneksi->query("SELECT * FROM kema_prestasi WHERE prodi='pemerintahan' ORDER BY tahun DESC, id DESC");
+?>
 <main>
-    <header class="page-header page-header-dark bg-primary pb-10">
-        <div class="container-xl px-4">
-            <div class="page-header-content pt-4">
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-auto mt-4">
-                        <h1 class="page-header-title">
-                            <div class="page-header-icon"><i data-feather="award"></i></div>
-                            Prestasi Mahasiswa
-                        </h1>
-                        <div class="page-header-subtitle">Catatan kebanggaan akademis maupun non-akademis mahasiswa Ilmu Pemerintahan.</div>
-                    </div>
-                </div>
-            </div>
+    <div class="bg-success text-white pt-5 pb-10">
+        <div class="container-xl px-4 pt-5">
+            <h1 class="fw-bold text-white mb-2"><i class="fas fa-award me-2"></i> Prestasi Mahasiswa</h1>
+            <p class="lead text-white-50">Catatan kebanggaan akademis maupun non-akademis mahasiswa Pembangunan Sosial.</p>
         </div>
-    </header>
+    </div>
     <div class="container-xl px-4 mt-n10 mb-5">
-        <div class="row gx-4">
-            <div class="col-lg-6 mb-4">
-                <div class="card shadow-sm border-0 lift h-100">
-                    <div class="card-body p-4 d-flex align-items-start">
-                        <div class="icon-stack icon-stack-xl bg-warning-soft text-warning flex-shrink-0 me-4"><i class="fas fa-trophy"></i></div>
+        <div class="row gx-4 justify-content-center">
+            <?php if($query->num_rows > 0): while($row = $query->fetch_assoc()): ?>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm border-0 rounded-4 h-100">
+                    <div class="card-body p-4 d-flex align-items-center">
+                        <div class="avatar-lg bg-light rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 me-4" style="width: 70px; height: 70px;">
+                            <?php if($row['tingkat'] == 'Institusi') echo '<i class="fas fa-running fa-2x text-info"></i>';
+                                  elseif($row['tingkat'] == 'Regional') echo '<i class="fas fa-trophy fa-2x text-warning"></i>';
+                                  else echo '<i class="fas fa-medal fa-2x text-primary"></i>'; ?>
+                        </div>
                         <div>
-                            <h5 class="fw-bold text-dark mb-1">Juara 1 Lomba Karya Tulis Ilmiah Tata Kelola Desa</h5>
-                            <p class="text-primary small mb-2 fw-bold">Tingkat Regional (2025)</p>
-                            <p class="small text-muted mb-0">Delegasi Ilmu Pemerintahan berhasil meraih juara pertama dalam kompetisi esai kebijakan publik yang diselenggarakan oleh Pemkab Ende.</p>
+                            <h5 class="fw-bold text-dark mb-1"><?= htmlspecialchars($row['prestasi']) ?></h5>
+                            <div class="small fw-bold text-success mb-2">Tingkat <?= htmlspecialchars($row['tingkat']) ?> (<?= $row['tahun'] ?>)</div>
+                            <p class="small text-muted mb-0"><?= htmlspecialchars($row['deskripsi']) ?></p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card shadow-sm border-0 lift h-100">
-                    <div class="card-body p-4 d-flex align-items-start">
-                        <div class="icon-stack icon-stack-xl bg-primary-soft text-primary flex-shrink-0 me-4"><i class="fas fa-medal"></i></div>
-                        <div>
-                            <h5 class="fw-bold text-dark mb-1">Duta Parlemen Remaja Tingkat Provinsi</h5>
-                            <p class="text-primary small mb-2 fw-bold">Tingkat Nasional (2025)</p>
-                            <p class="small text-muted mb-0">Mahasiswa Ilmu Pemerintahan angkatan 2023 terpilih mewakili provinsi NTT dalam ajang Parlemen Remaja di Gedung DPR RI Senayan.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card shadow-sm border-0 lift h-100">
-                    <div class="card-body p-4 d-flex align-items-start">
-                        <div class="icon-stack icon-stack-xl bg-info-soft text-info flex-shrink-0 me-4"><i class="fas fa-running"></i></div>
-                        <div>
-                            <h5 class="fw-bold text-dark mb-1">Juara Debat Konstitusi ORMAWA CUP</h5>
-                            <p class="text-primary small mb-2 fw-bold">Tingkat Institusi (2026)</p>
-                            <p class="small text-muted mb-0">Tim debat HMPS Ilmu Pemerintahan menjuarai lomba debat ketatanegaraan pada perayaan Dies Natalis STPM ke-25.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-3">
-            <button class="btn btn-outline-primary rounded-pill px-4">Muat Prestasi Lainnya</button>
+            <?php endwhile; else: ?>
+                <div class="col-12 text-center text-muted"><div class="card shadow-sm border-0 py-5">Belum ada data prestasi tercatat.</div></div>
+            <?php endif; ?>
         </div>
     </div>
 </main>
-<script>if (typeof feather !== 'undefined') feather.replace();</script>

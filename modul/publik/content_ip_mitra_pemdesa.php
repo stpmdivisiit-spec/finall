@@ -1,64 +1,57 @@
+<?php $data = $koneksi->query("SELECT * FROM prodi_mitra_informasi WHERE prodi='pemerintahan' AND kategori='mitra_pemerintah'")->fetch_assoc(); ?>
 <main>
-    <header class="page-header page-header-dark bg-primary pb-10">
-        <div class="container-xl px-4">
-            <div class="page-header-content pt-4">
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-auto mt-4">
-                        <h1 class="page-header-title">
-                            <div class="page-header-icon"><i data-feather="landmark"></i></div>
-                            Kemitraan Pemerintah & Desa
-                        </h1>
-                        <div class="page-header-subtitle">Sinergi mengawal birokrasi dan tata kelola pemerintah daerah.</div>
-                    </div>
-                </div>
-            </div>
+    <div class="bg-success text-white pt-5 pb-10">
+        <div class="container-xl px-4 pt-5">
+            <h1 class="fw-bold mb-2"><i class="fas fa-map-marker-alt me-2"></i> Kemitraan Pemerintah & Desa</h1>
+            <p class="lead text-white-50">Sinergi membangun daerah dari tingkat akar rumput.</p>
         </div>
-    </header>
+    </div>
     <div class="container-xl px-4 mt-n10 mb-5">
-        <div class="card shadow-sm border-0 mb-4">
-            <div class="card-body p-5">
-                <div class="row align-items-center text-center text-lg-start">
-                    <div class="col-lg-8 mb-4 mb-lg-0">
-                        <h3 class="fw-bold text-dark mb-3">Kolaborasi Eksekutif & Legislatif Daerah</h3>
-                        <p class="text-muted mb-0">Prodi Ilmu Pemerintahan STPM Santa Ursula menjadi mitra strategis bagi Pemerintah Daerah (Pemda) Kabupaten Ende, DPRD, serta jaringan Pemerintahan Desa. Kemitraan ini diwujudkan melalui pendampingan perumusan kebijakan publik (Perda/Perdes), magang mahasiswa di kantor dinas, dan penguatan tata kelola aparatur.</p>
-                    </div>
-                    <div class="col-lg-4 text-center">
-                        <i class="fas fa-handshake fa-5x text-primary opacity-50"></i>
-                    </div>
+        <div class="card shadow-sm border-0 rounded-4 mb-5">
+            <div class="card-body p-5 d-flex align-items-center justify-content-between">
+                <div class="pe-4">
+                    <h4 class="fw-bold text-dark mb-3">Laboratorium Sosial Desa</h4>
+                    <p class="text-muted mb-0"><?= htmlspecialchars($data['konten_utama'] ?? 'Data belum diatur.') ?></p>
                 </div>
+                <i class="fas fa-handshake fa-5x text-success opacity-50 d-none d-md-block"></i>
             </div>
         </div>
 
-        <h4 class="fw-bold text-dark mb-3 mt-5">Fokus Kerja Sama Institusi</h4>
-        <div class="row gx-4">
+        <h5 class="fw-bold text-dark mb-4">Fokus Kerja Sama Desa</h5>
+        <div class="row gx-4 text-center">
             <div class="col-md-4 mb-4">
-                <div class="card shadow-sm border-0 h-100 lift border-bottom border-primary border-3">
-                    <div class="card-body p-4 text-center">
-                        <div class="icon-stack icon-stack-xl bg-primary-soft text-primary mb-3"><i class="fas fa-file-contract"></i></div>
-                        <h6 class="fw-bold text-dark">Pendampingan Regulasi (Legal Drafting)</h6>
-                        <p class="small text-muted mb-0">Melibatkan dosen pakar dalam penyusunan naskah akademik (NA) dan draft peraturan daerah/desa.</p>
+                <div class="card shadow-sm border-0 h-100 rounded-4 py-4 px-3">
+                    <div class="card-body">
+                        <div class="avatar-lg bg-success bg-opacity-25 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                            <i class="fas fa-store fa-2x text-success"></i>
+                        </div>
+                        <h6 class="fw-bold text-dark mb-3">Pendampingan BUMDes</h6>
+                        <p class="small text-muted mb-0">Inkubasi bisnis desa dan penguatan manajerial Badan Usaha Milik Desa agar mandiri secara ekonomi.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="card shadow-sm border-0 h-100 lift border-bottom border-primary border-3">
-                    <div class="card-body p-4 text-center">
-                        <div class="icon-stack icon-stack-xl bg-warning-soft text-warning mb-3"><i class="fas fa-users-cog"></i></div>
-                        <h6 class="fw-bold text-dark">Kapasitas Aparatur Sipil Negara (ASN)</h6>
-                        <p class="small text-muted mb-0">Penyelenggaraan bimbingan teknis (Bimtek) tata kelola birokrasi dan e-government bagi perangkat daerah.</p>
+                <div class="card shadow-sm border-0 h-100 rounded-4 py-4 px-3">
+                    <div class="card-body">
+                        <div class="avatar-lg bg-primary bg-opacity-25 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                            <i class="fas fa-laptop-house fa-2x text-primary"></i>
+                        </div>
+                        <h6 class="fw-bold text-dark mb-3">Digitalisasi Desa</h6>
+                        <p class="small text-muted mb-0">Membantu tata kelola arsip desa berbasis digital dan pembuatan profil desa berbasis web.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="card shadow-sm border-0 h-100 lift border-bottom border-primary border-3">
-                    <div class="card-body p-4 text-center">
-                        <div class="icon-stack icon-stack-xl bg-info-soft text-info mb-3"><i class="fas fa-map-signs"></i></div>
-                        <h6 class="fw-bold text-dark">Perencanaan Pembangunan Desa (RPJMDes)</h6>
-                        <p class="small text-muted mb-0">Membantu kepala desa dan BPD merumuskan visi tata ruang dan anggaran dana desa yang partisipatif.</p>
+                <div class="card shadow-sm border-0 h-100 rounded-4 py-4 px-3">
+                    <div class="card-body">
+                        <div class="avatar-lg bg-warning bg-opacity-25 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                            <i class="fas fa-seedling fa-2x text-warning"></i>
+                        </div>
+                        <h6 class="fw-bold text-dark mb-3">Pengentasan Stunting</h6>
+                        <p class="small text-muted mb-0">Program edukasi gizi dan sanitasi lingkungan bekerjasama dengan puskesmas dan aparat desa setempat.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
-<script>if (typeof feather !== 'undefined') feather.replace();</script>

@@ -45,7 +45,7 @@
                     
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['lpm_kebijakan', 'lpm_manual', 'lpm_standar', 'lpm_formulir']) ? 'active text-info' : 'text-dark' ?>" id="navDokMutu" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dokumen Mutu <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Dokumen Mutu 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navDokMutu">
                             <a class="dropdown-item <?= ($mod=='lpm_kebijakan') ? 'active' : '' ?>" href="/FINAL/index.php?module=lpm_kebijakan">Kebijakan Mutu</a>
@@ -57,7 +57,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['lpm_ami_panduan', 'lpm_ami_instrumen', 'lpm_ami_laporan', 'lpm_ami_tindaklanjut']) ? 'active text-info' : 'text-dark' ?>" id="navAmi" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Audit Mutu (AMI) <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Audit Mutu (AMI) 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navAmi">
                             <a class="dropdown-item <?= ($mod=='lpm_ami_panduan') ? 'active' : '' ?>" href="/FINAL/index.php?module=lpm_ami_panduan">Panduan AMI</a>
@@ -69,7 +69,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['lpm_mutu_pembelajaran', 'lpm_mutu_tracer', 'lpm_mutu_mhs', 'lpm_mutu_dosen']) ? 'active text-info' : 'text-dark' ?>" id="navMutuAkademik" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Mutu Akademik <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Mutu Akademik 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navMutuAkademik">
                             <a class="dropdown-item <?= ($mod=='lpm_mutu_pembelajaran') ? 'active' : '' ?>" href="/FINAL/index.php?module=lpm_mutu_pembelajaran">Evaluasi Pembelajaran</a>
@@ -81,7 +81,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['lpm_akre_lembaga', 'lpm_akre_instrumen', 'lpm_akre_borang', 'lpm_akre_laporan']) ? 'active text-info' : 'text-dark' ?>" id="navAkreditasi" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Akreditasi <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Akreditasi 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navAkreditasi">
                             <a class="dropdown-item <?= ($mod=='lpm_akre_lembaga') ? 'active' : '' ?>" href="/FINAL/index.php?module=lpm_akre_lembaga">Akreditasi Lembaga</a>

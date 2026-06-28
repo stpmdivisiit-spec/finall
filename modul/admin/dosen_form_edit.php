@@ -1,7 +1,12 @@
 <?php
 if (!defined('AKSES_DIIZINKAN')) die("Akses ditolak!");
-
+// C:\xampp\htdocs\FINAL\modul\admin\dosen_form_edit.php
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+// Membuat CSRF Token secara mandiri jika belum ada di session
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 
 // PERBAIKAN QUERY DOSEN: Menghindari bentrok ID dengan ALIAS
 $stmt = $koneksi->prepare("
@@ -46,7 +51,8 @@ if (!$data) {
         <div class="card-body">
 
 <form action="index.php?module=admin&act=proses_update_dosen" method="POST">
-    <input type="hidden" name="csrf_token" value="<?= generateCSRFToken() ?>">
+    
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
     <input type="hidden" name="user_id" value="<?= $data['user_id_asli'] ?>">
 
     <h6 class="fw-bold text-primary mb-3">Informasi Akun Login</h6>

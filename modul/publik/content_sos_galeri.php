@@ -1,62 +1,49 @@
+<?php
+// Tarik data galeri Pembangunan Sosial
+$query = $koneksi->query("SELECT * FROM prodi_publikasi_visual WHERE prodi='sosiatri' AND kategori='galeri' ORDER BY tanggal_kegiatan DESC, id DESC");
+?>
 <main>
-    <header class="page-header page-header-dark bg-success pb-10">
-        <div class="container-xl px-4">
-            <div class="page-header-content pt-4">
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-auto mt-4">
-                        <h1 class="page-header-title">
-                            <div class="page-header-icon"><i data-feather="image"></i></div>
-                            Galeri Kegiatan Prodi
-                        </h1>
-                        <div class="page-header-subtitle">Dokumentasi potret lapangan riset, abdimas, dan aktivitas kampus.</div>
-                    </div>
-                </div>
-            </div>
+    <div class="bg-success text-white pt-5 pb-10 text-center" style="min-height: 40vh;">
+        <div class="container-xl px-4 pt-5">
+            <h1 class="fw-bold text-white mb-2"><i class="far fa-images me-2"></i> Galeri Kegiatan Prodi</h1>
+            <p class="lead text-white-50">Dokumentasi kegiatan abdimas, kuliah lapangan, dan aktivitas mahasiswa.</p>
         </div>
-    </header>
+    </div>
+
     <div class="container-xl px-4 mt-n10 mb-5">
-        <div class="row gx-4">
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card shadow-sm border-0 lift h-100 overflow-hidden">
-                    <img src="/FINAL/assets/img/demo/demo-ocean-sm.jpg" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Galeri">
-                    <div class="card-body p-3">
-                        <h6 class="fw-bold text-dark mb-1">Pelepasan Mahasiswa KKN Tematik 2025</h6>
-                        <p class="text-muted small mb-0"><i class="far fa-calendar-alt me-1"></i> Juli 2025</p>
+        <div class="galeri-grid">
+            <?php if($query->num_rows > 0): ?>
+                <?php while($row = $query->fetch_assoc()): ?>
+                <div class="galeri-item card shadow-sm border-0 rounded-4 overflow-hidden h-100">
+                    <div class="galeri-img-wrapper bg-light">
+                        <img src="uploads/visual/<?= $row['file_gambar_webp'] ?>" class="galeri-img" loading="lazy" alt="<?= htmlspecialchars($row['judul']) ?>">
+                    </div>
+                    <div class="card-body p-4 bg-white">
+                        <h6 class="fw-bold text-dark mb-2"><?= htmlspecialchars($row['judul']) ?></h6>
+                        <p class="small text-muted mb-3 line-clamp-2"><?= htmlspecialchars($row['deskripsi_issn']) ?></p>
+                        <div class="small fw-bold text-success">
+                            <i class="far fa-calendar-alt me-1"></i> <?= date('d F Y', strtotime($row['tanggal_kegiatan'])) ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card shadow-sm border-0 lift h-100 overflow-hidden">
-                    <img src="/FINAL/assets/img/demo/demo-ocean-lg.jpg" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Galeri">
-                    <div class="card-body p-3">
-                        <h6 class="fw-bold text-dark mb-1">Diskusi Terpumpun (FGD) Pemberdayaan BUMDes</h6>
-                        <p class="text-muted small mb-0"><i class="far fa-calendar-alt me-1"></i> Agustus 2025</p>
-                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="col-12 text-center text-muted py-5" style="grid-column: 1 / -1;">
+                    <i class="far fa-image fa-4x mb-3 opacity-25"></i>
+                    <h5>Belum ada dokumentasi galeri.</h5>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card shadow-sm border-0 lift h-100 overflow-hidden">
-                    <img src="/FINAL/assets/img/demo/cards/card-img-top.jpg" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Galeri">
-                    <div class="card-body p-3">
-                        <h6 class="fw-bold text-dark mb-1">Bakti Sosial di Panti Asuhan Kota Ende</h6>
-                        <p class="text-muted small mb-0"><i class="far fa-calendar-alt me-1"></i> Desember 2025</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card shadow-sm border-0 lift h-100 overflow-hidden">
-                    <img src="/FINAL/assets/img/demo/cards/card-img-left.jpg" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Galeri">
-                    <div class="card-body p-3">
-                        <h6 class="fw-bold text-dark mb-1">Seminar Hasil Penelitian Dosen-Mahasiswa</h6>
-                        <p class="text-muted small mb-0"><i class="far fa-calendar-alt me-1"></i> Maret 2026</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="text-center mt-3">
-            <button class="btn btn-outline-success rounded-pill px-4">Muat Lebih Banyak Foto</button>
+            <?php endif; ?>
         </div>
     </div>
 </main>
+
+<style>
+    .galeri-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; align-items: stretch; }
+    .galeri-item { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .galeri-item:hover { transform: translateY(-5px); box-shadow: 0 1rem 3rem rgba(0,0,0,.15) !important; }
+    .galeri-img-wrapper { height: 220px; overflow: hidden; position: relative; }
+    .galeri-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .galeri-item:hover .galeri-img { transform: scale(1.08); }
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+</style>
 <script>if (typeof feather !== 'undefined') feather.replace();</script>

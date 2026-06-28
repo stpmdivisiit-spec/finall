@@ -45,7 +45,7 @@
                     
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['lp2m_profil_fungsi', 'lp2m_struktur', 'lp2m_vmt']) ? 'active text-warning' : 'text-dark' ?>" id="navProfilLP2M" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Profil <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Profil 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navProfilLP2M">
                             <a class="dropdown-item <?= ($mod=='lp2m_profil_fungsi') ? 'active' : '' ?>" href="/FINAL/index.php?module=lp2m_profil_fungsi">Profil & Fungsi LP2M</a>
@@ -56,7 +56,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['lp2m_riset_roadmap', 'lp2m_riset_agenda', 'lp2m_riset_panduan', 'lp2m_riset_hasil', 'lp2m_riset_hki', 'lp2m_riset_hibah']) ? 'active text-warning' : 'text-dark' ?>" id="navRisetLP2M" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Penelitian <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Penelitian 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navRisetLP2M">
                             <a class="dropdown-item <?= ($mod=='lp2m_riset_roadmap') ? 'active' : '' ?>" href="/FINAL/index.php?module=lp2m_riset_roadmap">Roadmap Penelitian</a>
@@ -70,7 +70,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['lp2m_abdimas_roadmap', 'lp2m_abdimas_program', 'lp2m_abdimas_panduan', 'lp2m_abdimas_kkn', 'lp2m_abdimas_laporan']) ? 'active text-warning' : 'text-dark' ?>" id="navAbdimas" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Abdimas <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Abdimas 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navAbdimas">
                             <a class="dropdown-item <?= ($mod=='lp2m_abdimas_roadmap') ? 'active' : '' ?>" href="/FINAL/index.php?module=lp2m_abdimas_roadmap">Roadmap Abdimas</a>
@@ -83,7 +83,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['lp2m_pub_jurnal', 'lp2m_pub_prosiding', 'lp2m_pub_repo', 'lp2m_pub_cfp']) ? 'active text-warning' : 'text-dark' ?>" id="navPublikasi" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Publikasi <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Publikasi 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navPublikasi">
                             <a class="dropdown-item <?= ($mod=='lp2m_pub_jurnal') ? 'active' : '' ?>" href="/FINAL/index.php?module=lp2m_pub_jurnal">Jurnal Institusi</a>
@@ -95,7 +95,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['lp2m_kerja_penelitian', 'lp2m_kerja_abdimas', 'lp2m_kerja_mou']) ? 'active text-warning' : 'text-dark' ?>" id="navKerjasama" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Kerjasama <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Kerjasama 
                         </a>
                         <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navKerjasama">
                             <a class="dropdown-item <?= ($mod=='lp2m_kerja_penelitian') ? 'active' : '' ?>" href="/FINAL/index.php?module=lp2m_kerja_penelitian">Mitra Penelitian</a>
@@ -105,7 +105,7 @@
                     </li>
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['lp2m_dok_laporan', 'lp2m_dok_kebijakan', 'lp2m_dok_sop', 'lp2m_dok_formulir']) ? 'active text-warning' : 'text-dark' ?>" id="navDokLP2M" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dokumen <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Dokumen 
                         </a>
                         <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navDokLP2M">
                             <a class="dropdown-item <?= ($mod=='lp2m_dok_laporan') ? 'active' : '' ?>" href="/FINAL/index.php?module=lp2m_dok_laporan">Laporan Tahunan</a>
@@ -117,7 +117,7 @@
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['lp2m_info_berita', 'lp2m_info_agenda', 'lp2m_info_galeri']) ? 'active text-warning' : 'text-dark' ?>" id="navInfo" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Informasi <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i>
+                            Informasi 
                         </a>
                         <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navInfo">
                             <a class="dropdown-item <?= ($mod=='lp2m_info_berita') ? 'active' : '' ?>" href="/FINAL/index.php?module=lp2m_info_berita">Berita LP2M</a>

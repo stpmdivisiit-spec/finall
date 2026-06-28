@@ -1,5 +1,6 @@
 <?php
 if (!defined('AKSES_DIIZINKAN')) die("Akses ditolak!");
+// C:\xampp\htdocs\FINAL\modul\admin\dosen_form_tambah.php
 ?>
 
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">

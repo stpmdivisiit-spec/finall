@@ -1,4 +1,5 @@
 <?php
+// C:\xampp\htdocs\FINAL\modul\kelola_prodi\dashboard.php
 // Pastikan akses aman
 if (!defined('AKSES_DIIZINKAN')) die("Akses ditolak!");
 
@@ -162,6 +163,22 @@ $total_berita  = 8;  // Ganti dengan: $koneksi->query("SELECT COUNT(*) FROM prod
                                 </div>
                             </a>
                         </div>
+
+                        <div class="col-md-3 col-6 mb-3">
+                            <a href="index.php?module=<?= $module_url ?>&act=akreditasi" class="text-decoration-none text-dark">
+                                <div class="p-3 border rounded hover-bg-light transition-all h-100">
+                                    <i class="fas fa-award fa-2x text-info mb-2"></i><br>
+                                    <span class="small fw-bold">Akreditasi</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <a href="index.php?module=<?= $module_url ?>&act=profil_prodi" class="btn btn-outline-primary w-100 py-3 rounded-3 fw-bold border-dashed">
+                                <i class="fas fa-edit me-2"></i> Kelola Tampilan Profil Beranda Prodi
+                            </a>
+                        </div>
+
+
                     </div>
                 </div>
             </div>

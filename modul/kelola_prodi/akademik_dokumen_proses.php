@@ -2,54 +2,48 @@
 if (!defined('AKSES_DIIZINKAN')) die("Akses ditolak!");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // 1. Validasi Keamanan Token CSRF
-    verifyCSRFToken($_POST['csrf_token'] ?? '');
-
-    $id            = (int)$_POST['id'];
-    $kategori      = trim($_POST['kategori']);
-    $judul_dokumen = trim($_POST['judul_dokumen']);
-    $keterangan    = trim($_POST['keterangan']);
-    $file_lama     = trim($_POST['file_lama'] ?? '');
     
-    $nama_file = $file_lama;
+    $prodi          = $koneksi->real_escape_string($_POST['prodi']);
+    $kategori       = $koneksi->real_escape_string($_POST['kategori']);
+    $judul_dokumen  = $koneksi->real_escape_string($_POST['judul_dokumen']);
+    $keterangan     = $koneksi->real_escape_string($_POST['keterangan']);
+    
+    $redirect_module = $_POST['redirect_module'];
+    $redirect_act    = $_POST['redirect_act'];
 
-    // 2. Proses Upload Dokumen (Maks 5MB, hanya PDF/Word)
+    // Proses Upload Dokumen
+    $nama_file = "";
     if (isset($_FILES['file_dokumen']) && $_FILES['file_dokumen']['error'] == 0) {
-        $allowed_exts  = ['pdf', 'doc', 'docx'];
-        $allowed_mimes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        $ext = strtolower(pathinfo($_FILES['file_dokumen']['name'], PATHINFO_EXTENSION));
         
-        // Memanggil fungsi dari config/functions.php (Maksimal 5MB = 5242880 bytes)
-        $hasil_upload = uploadFileAman($_FILES['file_dokumen'], 'uploads/prodi/dokumen/', $allowed_exts, $allowed_mimes, 5242880);
-        
-        if ($hasil_upload === "ERROR_SIZE") {
-            echo "<script>alert('Gagal! Ukuran dokumen maksimal 5 MB.'); window.history.back();</script>"; exit;
-        } elseif ($hasil_upload === "ERROR_MIME") {
-            echo "<script>alert('Gagal! Format file harus PDF atau Word.'); window.history.back();</script>"; exit;
-        } elseif ($hasil_upload !== false) {
-            $nama_file = $hasil_upload;
-            // Hapus file lama di server
-            if (!empty($file_lama) && file_exists('uploads/prodi/dokumen/' . $file_lama)) {
-                unlink('uploads/prodi/dokumen/' . $file_lama);
+        // Validasi Ekstensi
+        if (in_array($ext, ['pdf', 'doc', 'docx'])) {
+            // Validasi Ukuran (Maks 5 MB)
+            if($_FILES['file_dokumen']['size'] <= 5242880) {
+                $nama_file = $prodi . '_' . $kategori . '_' . time() . '.' . $ext;
+                $path = 'uploads/akademik/' . $nama_file;
+                
+                // PENTING: Pastikan folder uploads/akademik/ sudah dibuat!
+                move_uploaded_file($_FILES['file_dokumen']['tmp_name'], $path);
+            } else {
+                echo "<script>alert('Gagal! Ukuran dokumen maksimal 5 MB.'); window.history.back();</script>"; exit;
             }
+        } else {
+            echo "<script>alert('Gagal! Format file harus PDF, DOC, atau DOCX.'); window.history.back();</script>"; exit;
         }
     }
 
-    // 3. Eksekusi Database dengan Prepared Statements
-    if ($id > 0) {
-        $stmt = $koneksi->prepare("UPDATE prodi_dokumen_akademik SET kategori=?, judul_dokumen=?, keterangan=?, file_dokumen=? WHERE id=?");
-        $stmt->bind_param("ssssi", $kategori, $judul_dokumen, $keterangan, $nama_file, $id);
-        $pesan = "Dokumen berhasil diperbarui!";
+    if (!empty($nama_file)) {
+        $sql = "INSERT INTO prodi_dokumen_akademik (prodi, kategori, judul_dokumen, keterangan, file_dokumen) 
+                VALUES ('$prodi', '$kategori', '$judul_dokumen', '$keterangan', '$nama_file')";
+                
+        if ($koneksi->query($sql)) {
+            echo "<script>alert('Dokumen berhasil diunggah!'); window.location='index.php?module=$redirect_module&act=$redirect_act';</script>";
+        } else {
+            echo "<script>alert('Gagal menyimpan: " . $koneksi->error . "'); window.history.back();</script>";
+        }
     } else {
-        $stmt = $koneksi->prepare("INSERT INTO prodi_dokumen_akademik (prodi, kategori, judul_dokumen, keterangan, file_dokumen) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $module_url, $kategori, $judul_dokumen, $keterangan, $nama_file);
-        $pesan = "Dokumen baru berhasil ditambahkan!";
-    }
-    
-    if ($stmt->execute()) {
-        $stmt->close();
-        echo "<script>alert('$pesan'); window.location='index.php?module=$module_url&act=dok_akademik';</script>";
-    } else {
-        echo "<script>alert('GAGAL MENYIMPAN: " . $stmt->error . "'); window.history.back();</script>";
+        echo "<script>alert('File dokumen gagal diunggah atau tidak ditemukan.'); window.history.back();</script>";
     }
 }
 ?>

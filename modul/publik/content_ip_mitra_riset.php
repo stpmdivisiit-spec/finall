@@ -1,50 +1,38 @@
+<?php $data = $koneksi->query("SELECT * FROM prodi_mitra_informasi WHERE prodi='pemerintahan' AND kategori='mitra_penelitian'")->fetch_assoc(); ?>
 <main>
-    <header class="page-header page-header-dark bg-primary pb-10">
-        <div class="container-xl px-4">
-            <div class="page-header-content pt-4">
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-auto mt-4">
-                        <h1 class="page-header-title">
-                            <div class="page-header-icon"><i data-feather="share-2"></i></div>
-                            Kerja Sama Penelitian Pemerintahan
-                        </h1>
-                        <div class="page-header-subtitle">Riset kolaboratif dalam menyusun formulasi (Policy Brief) kebijakan negara.</div>
-                    </div>
-                </div>
-            </div>
+    <div class="bg-success text-white pt-5 pb-10">
+        <div class="container-xl px-4 pt-5">
+            <h1 class="fw-bold mb-2"><i class="fas fa-share-alt me-2"></i> Kerja Sama Penelitian</h1>
+            <p class="lead text-white-50">Sinergi riset lintas perguruan tinggi dan pertukaran data antar lembaga.</p>
         </div>
-    </header>
+    </div>
     <div class="container-xl px-4 mt-n10 mb-5">
         <div class="row gx-4">
             <div class="col-lg-4 mb-4">
-                <div class="card shadow-sm border-0 h-100 text-center py-5 bg-light border-bottom border-primary border-3">
+                <div class="card shadow-sm border-0 h-100 rounded-4 py-5 text-center bg-light">
                     <div class="card-body">
-                        <i class="fas fa-copy fa-4x text-primary mb-4 opacity-75"></i>
-                        <h5 class="fw-bold text-dark">Policy Brief & Naskah Akademik</h5>
-                        <p class="text-muted small px-3">Kolaborasi riset yang ditujukan untuk memberikan rekomendasi langsung (policy brief) kepada Bupati dan DPRD dalam merespons isu publik.</p>
+                        <i class="fas fa-microscope fa-4x text-success mb-4 opacity-75"></i>
+                        <h4 class="fw-bold text-dark mb-3">Joint Research</h4>
+                        <p class="text-muted small px-3"><?= htmlspecialchars($data['konten_utama'] ?? 'Data belum diatur.') ?></p>
                     </div>
                 </div>
             </div>
-            
             <div class="col-lg-8 mb-4">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-header bg-transparent border-bottom p-4">
-                        <h5 class="fw-bold text-dark mb-0"><i class="fas fa-file-signature text-primary me-2"></i>Ruang Lingkup Kemitraan Riset</h5>
+                <div class="card shadow-sm border-0 h-100 rounded-4">
+                    <div class="card-header bg-white border-bottom p-4">
+                        <h5 class="fw-bold text-dark mb-0"><i class="fas fa-clipboard-check text-success me-2"></i> Ruang Lingkup Kemitraan Riset</h5>
                     </div>
                     <div class="card-body p-4 p-md-5">
-                        <ul class="list-group list-group-flush text-muted">
-                            <li class="list-group-item px-0 py-3 border-bottom"><i class="fas fa-check text-primary me-2"></i> Survei Indeks Kepuasan Masyarakat (IKM) atas Kinerja Dinas Daerah.</li>
-                            <li class="list-group-item px-0 py-3 border-bottom"><i class="fas fa-check text-primary me-2"></i> Studi Evaluasi Dampak Peraturan Daerah (Perda) dan Otonomi Wilayah.</li>
-                            <li class="list-group-item px-0 py-3 border-bottom"><i class="fas fa-check text-primary me-2"></i> Konsorsium Publikasi Jurnal (Co-Author) bersama institusi pendidikan lain seperti IPDN dan LAN.</li>
-                            <li class="list-group-item px-0 py-3"><i class="fas fa-check text-primary me-2"></i> Riset preferensi dan perilaku pemilih jelang Pilkada Serentak.</li>
-                        </ul>
-                        <div class="mt-4">
-                            <a href="#!" class="btn btn-outline-dark rounded-pill px-4">Download Draft MoU Riset</a>
+                        <div class="editor-content-success text-muted mb-4">
+                            <?= $data['konten_tambahan_1'] ?? '<p>Belum ada data.</p>' ?>
                         </div>
+                        <?php if(!empty($data['file_lampiran_1'])): ?>
+                            <a href="uploads/mitra/<?= $data['file_lampiran_1'] ?>" target="_blank" class="btn btn-outline-dark rounded-pill px-4 shadow-sm">Download Draft MoU Riset</a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
-<script>if (typeof feather !== 'undefined') feather.replace();</script>
+<style>.editor-content-success ul { list-style-type: none; padding-left: 0; } .editor-content-success li { position: relative; padding-left: 2rem; margin-bottom: 1rem; border-bottom: 1px solid #f8f9fa; padding-bottom: 0.5rem; } .editor-content-success li::before { content: "\f00c"; font-family: "Font Awesome 5 Free"; font-weight: 900; color: #198754; position: absolute; left: 0; top: 2px; font-size: 1.1rem; }</style>

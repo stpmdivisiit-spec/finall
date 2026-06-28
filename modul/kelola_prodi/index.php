@@ -52,6 +52,21 @@ switch ($act) {
         if (file_exists('modul/kelola_prodi/sejarah_proses.php')) include 'modul/kelola_prodi/sejarah_proses.php';
         break;
 
+case 'hapus_foto_sejarah':
+        $id_foto = (int)$_GET['id_foto'];
+        $mod_aktif = $_GET['module']; // untuk redirect
+
+        $data_foto = $koneksi->query("SELECT file_gambar FROM prodi_sejarah_galeri WHERE id = '$id_foto'")->fetch_assoc();
+        if ($data_foto) {
+            $path = 'uploads/profil/' . $data_foto['file_gambar'];
+            if (file_exists($path)) unlink($path); // Hapus fisik file
+            $koneksi->query("DELETE FROM prodi_sejarah_galeri WHERE id = '$id_foto'"); // Hapus DB
+        }
+        echo "<script>window.location='index.php?module=$mod_aktif&act=sejarah';</script>";
+        break;
+
+
+
     case 'struktur':
         if (file_exists('modul/kelola_prodi/struktur_form.php')) include 'modul/kelola_prodi/struktur_form.php';
         break;
@@ -130,6 +145,19 @@ switch ($act) {
     case 'kurikulum':
         if (file_exists('modul/kelola_prodi/akademik_kurikulum.php')) include 'modul/kelola_prodi/akademik_kurikulum.php';
         break;
+
+// ========================================================
+    // --- MANAJEMEN PROFIL BERANDA PRODI ---
+    // ========================================================
+    case 'profil_prodi':
+        if (file_exists('modul/kelola_prodi/profil_prodi.php')) {
+            include 'modul/kelola_prodi/profil_prodi.php';
+        } else {
+            echo "<div class='alert alert-danger m-4'>Error: File modul/kelola_prodi/profil_prodi.php tidak ditemukan!</div>";
+        }
+        break;
+
+
     case 'proses_kurikulum':
         if (file_exists('modul/kelola_prodi/akademik_kurikulum_proses.php')) include 'modul/kelola_prodi/akademik_kurikulum_proses.php';
         break;
@@ -226,7 +254,7 @@ switch ($act) {
         break;
 
     // ==========================================
-    // 7. MANAJEMEN KEMAHASISWAAN
+    // 7. MANAJEMEN KEMAHASISWAAN C:\xampp\htdocs\FINAL\modul\kelola_prodi\index.php
     // ==========================================
     case 'hmps':
     case 'prestasi':
