@@ -1,41 +1,83 @@
-<?php
-if (!defined('AKSES_DIIZINKAN')) die("Akses ditolak!");
+<?php if (!defined('AKSES_DIIZINKAN')) die("Akses ditolak!"); 
+// C:\xampp\htdocs\FINAL\modul\perpustakaan\koleksi_proses.php
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $kategori   = $_POST['kategori_koleksi'];
-    $is_digital = $_POST['is_digital'];
-    
-    $judul      = $koneksi->real_escape_string($_POST['judul']);
-    $penulis    = $koneksi->real_escape_string($_POST['penulis']);
-    $penerbit   = $koneksi->real_escape_string($_POST['penerbit_kampus']);
-    $tahun      = (int)$_POST['tahun_terbit'];
-    $stok       = isset($_POST['stok_fisik']) ? (int)$_POST['stok_fisik'] : 0;
+$aksi = $_POST['aksi'] ?? '';
 
-    $nama_cover = "";
-    $nama_pdf = "";
+if ($aksi == 'tambah_koleksi' || $aksi == 'edit_koleksi') {
+    $kat = $_POST['kategori_koleksi'];
+    $judul = trim($_POST['judul']);
+    $penulis = trim($_POST['penulis_pengarang'] ?? '');
+    $penerbit = trim($_POST['penerbit'] ?? '');
+    $tahun = trim($_POST['tahun_terbit'] ?? '');
+    $isbn = trim($_POST['isbn_issn'] ?? '');
+    $edisi = trim($_POST['edisi_volume'] ?? '');
+    $prodi = trim($_POST['program_studi'] ?? '');
+    $stok = (int)($_POST['stok_fisik'] ?? 0);
+    $abstrak = trim($_POST['abstrak_deskripsi'] ?? '');
+    $tautan = trim($_POST['tautan_luar'] ?? '');
 
-    // 1. Upload Cover Gambar
-    if (isset($_FILES['cover_gambar']) && $_FILES['cover_gambar']['error'] == 0) {
-        $ext = strtolower(pathinfo($_FILES['cover_gambar']['name'], PATHINFO_EXTENSION));
-        $nama_cover = 'cover_' . time() . '.' . $ext;
-        move_uploaded_file($_FILES['cover_gambar']['tmp_name'], 'uploads/perpustakaan/cover/' . $nama_cover);
-    }
+    $cover_final = ($aksi == 'edit_koleksi') ? $_POST['cover_lama'] : NULL;
+    $file_final = ($aksi == 'edit_koleksi') ? $_POST['file_lama'] : NULL;
 
-    // 2. Upload File PDF (Khusus E-Book/Skripsi)
-    if ($is_digital == 1 && isset($_FILES['file_lampiran']) && $_FILES['file_lampiran']['error'] == 0) {
-        $ext = strtolower(pathinfo($_FILES['file_lampiran']['name'], PATHINFO_EXTENSION));
-        if ($ext === 'pdf') {
-            $nama_pdf = 'digital_' . $kategori . '_' . time() . '.' . $ext;
-            move_uploaded_file($_FILES['file_lampiran']['tmp_name'], 'uploads/perpustakaan/koleksi/' . $nama_pdf);
-        } else {
-            echo "<script>alert('Gagal! Buku Digital/Skripsi harus format PDF.'); window.history.back();</script>"; exit;
+    // --- UPLOAD COVER GAMBAR ---
+    if (isset($_FILES['cover_gambar']['name']) && $_FILES['cover_gambar']['name'] != '') {
+        $nama_file = $_FILES['cover_gambar']['name'];
+        $tmp_file = $_FILES['cover_gambar']['tmp_name'];
+        $ext = strtolower(pathinfo($nama_file, PATHINFO_EXTENSION));
+        if (in_array($ext, ['png','jpg','jpeg','webp'])) {
+            $dir_cover = 'uploads/perpustakaan/cover/';
+            if (!is_dir($dir_cover)) mkdir($dir_cover, 0777, true);
+            $cover_baru = 'Cover_' . $kat . '_' . time() . '.' . $ext;
+            move_uploaded_file($tmp_file, $dir_cover . $cover_baru);
+            if ($aksi == 'edit_koleksi' && !empty($cover_final) && file_exists($dir_cover . $cover_final)) unlink($dir_cover . $cover_final);
+            $cover_final = $cover_baru;
         }
     }
 
-    $sql = "INSERT INTO perpus_koleksi (kategori_koleksi, judul, penulis, penerbit_kampus, tahun_terbit, cover_gambar, file_lampiran, stok_fisik) 
-            VALUES ('$kategori', '$judul', '$penulis', '$penerbit', '$tahun', '$nama_cover', '$nama_pdf', '$stok')";
+    // --- UPLOAD DOKUMEN PDF ---
+    if (isset($_FILES['file_lampiran']['name']) && $_FILES['file_lampiran']['name'] != '') {
+        $nama_file = $_FILES['file_lampiran']['name'];
+        $tmp_file = $_FILES['file_lampiran']['tmp_name'];
+        $ext = strtolower(pathinfo($nama_file, PATHINFO_EXTENSION));
+        if ($ext == 'pdf') {
+            $dir_file = 'uploads/perpustakaan/koleksi/';
+            if (!is_dir($dir_file)) mkdir($dir_file, 0777, true);
+            $file_baru = 'File_' . $kat . '_' . time() . '.pdf';
+            move_uploaded_file($tmp_file, $dir_file . $file_baru);
+            if ($aksi == 'edit_koleksi' && !empty($file_final) && file_exists($dir_file . $file_final)) unlink($dir_file . $file_final);
+            $file_final = $file_baru;
+        }
+    }
+
+    // --- EKSEKUSI DATABASE DENGAN ERROR HANDLING ---
+    if ($aksi == 'tambah_koleksi') {
+        $query = "INSERT INTO perpus_koleksi (kategori_koleksi, judul, penulis_pengarang, penerbit, tahun_terbit, isbn_issn, edisi_volume, program_studi, stok_fisik, abstrak_deskripsi, cover_gambar, file_lampiran, tautan_luar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $koneksi->prepare($query);
+        
+        // Pengecekan Error jika kolom tidak ada / query salah
+        if (!$stmt) {
+            die("<div class='alert alert-danger'><strong>Error Database (Insert):</strong> " . $koneksi->error . "</div>");
+        }
+        
+        $stmt->bind_param("ssssssssissss", $kat, $judul, $penulis, $penerbit, $tahun, $isbn, $edisi, $prodi, $stok, $abstrak, $cover_final, $file_final, $tautan);
     
-    $koneksi->query($sql);
-    echo "<script>alert('Data Katalog berhasil disimpan!'); window.location='index.php?module=perpustakaan&act=koleksi&kat=$kategori';</script>";
+    } else {
+        $id = (int)$_POST['id'];
+        $query = "UPDATE perpus_koleksi SET judul=?, penulis_pengarang=?, penerbit=?, tahun_terbit=?, isbn_issn=?, edisi_volume=?, program_studi=?, stok_fisik=?, abstrak_deskripsi=?, cover_gambar=?, file_lampiran=?, tautan_luar=? WHERE id=?";
+        $stmt = $koneksi->prepare($query);
+        
+        // Pengecekan Error jika kolom tidak ada / query salah
+        if (!$stmt) {
+            die("<div class='alert alert-danger'><strong>Error Database (Update):</strong> " . $koneksi->error . "</div>");
+        }
+        
+        $stmt->bind_param("sssssssissssi", $judul, $penulis, $penerbit, $tahun, $isbn, $edisi, $prodi, $stok, $abstrak, $cover_final, $file_final, $tautan, $id);
+    }
+
+    if ($stmt->execute()) {
+        echo "<script>alert('Data Koleksi berhasil disimpan!'); window.location='index.php?module=perpustakaan&act=koleksi&kat=$kat';</script>";
+    } else {
+        echo "<script>alert('Terjadi kesalahan eksekusi: " . $stmt->error . "'); window.history.back();</script>";
+    }
 }
 ?>

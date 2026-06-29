@@ -1,44 +1,45 @@
 <main>
-    <header class="page-header page-header-dark bg-teal pb-10" style="background-color: #20c997;">
-        <div class="container-xl px-4">
-            <div class="page-header-content pt-4">
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-auto mt-4">
-                        <h1 class="page-header-title text-white">
-                            <div class="page-header-icon text-white"><i data-feather="search"></i></div>
-                            Katalog Online (OPAC)
-                        </h1>
-                        <div class="page-header-subtitle text-white-50">Online Public Access Catalog - Telusuri ketersediaan fisik buku di rak perpustakaan.</div>
-                    </div>
-                </div>
-            </div>
+    <header class="page-header page-header-dark bg-teal pb-10">
+        <div class="container-xl px-4 pt-5">
+            <h1 class="page-header-title text-white fw-bold"><i class="fas fa-book-open me-3"></i>Katalog OPAC</h1>
+            <p class="page-header-subtitle text-white-50">Cari ketersediaan buku fisik di rak perpustakaan.</p>
         </div>
     </header>
     <div class="container-xl px-4 mt-n10 mb-5">
-        <div class="card shadow-sm border-0 mb-4">
-            <div class="card-body p-5 text-center">
-                <i class="fas fa-database fa-4x mb-4 opacity-50" style="color: #20c997;"></i>
-                <h3 class="fw-bold text-dark mb-3">Pencarian Koleksi Terpadu</h3>
-                <p class="text-muted mb-4 mx-auto" style="max-width: 600px;">Gunakan mesin pencari OPAC kami untuk menemukan buku teks, referensi, dan kamus berdasarkan Judul, Pengarang, Penerbit, atau Subjek sebelum Anda datang ke perpustakaan.</p>
-                
-                <form class="mb-5 mx-auto" style="max-width: 700px;">
-                    <div class="input-group input-group-lg shadow-sm rounded-pill overflow-hidden border">
-                        <select class="form-select bg-light border-0" style="max-width: 150px;">
-                            <option value="judul">Judul</option>
-                            <option value="pengarang">Pengarang</option>
-                            <option value="subjek">Subjek</option>
-                            <option value="isbn">ISBN</option>
-                        </select>
-                        <input type="text" class="form-control border-0 px-4" placeholder="Masukkan kata kunci pencarian..." aria-label="Kata Kunci">
-                        <button class="btn text-white px-4 fw-bold" type="button" style="background-color: #20c997;"><i class="fas fa-search me-2"></i>Cari</button>
+        <div class="card shadow-sm border-0 mb-4 p-4">
+            <input type="text" class="form-control form-control-lg border-0 shadow-sm bg-light" id="searchKoleksi" placeholder="Cari judul buku, penulis, atau penerbit...">
+        </div>
+        <div class="row" id="koleksiContainer">
+            <?php
+            $query = $koneksi->query("SELECT * FROM perpus_koleksi WHERE kategori_koleksi = 'opac' ORDER BY id DESC");
+            while ($row = $query->fetch_assoc()) :
+                $cover = !empty($row['cover_gambar']) ? "uploads/perpustakaan/cover/".$row['cover_gambar'] : "assets/img/demo/demo-logo.svg";
+                $status = ($row['stok_fisik'] > 0) ? "<span class='badge bg-success'>Tersedia: {$row['stok_fisik']}</span>" : "<span class='badge bg-danger'>Dipinjam/Kosong</span>";
+            ?>
+            <div class="col-xl-3 col-md-4 col-sm-6 mb-4 filter-item">
+                <div class="card h-100 shadow-sm border-0 hover-lift">
+                    <img src="<?= $cover ?>" class="card-img-top p-3" style="height:250px; object-fit:contain;" alt="Cover">
+                    <div class="card-body pt-0">
+                        <?= $status ?>
+                        <h6 class="fw-bold text-dark mt-2 mb-1 item-judul"><?= htmlspecialchars($row['judul']) ?></h6>
+                        <p class="small text-muted mb-0 item-penulis">Oleh: <?= htmlspecialchars($row['penulis_pengarang']) ?></p>
+                        <hr class="my-2">
+                        <small class="text-muted d-block">Penerbit: <?= htmlspecialchars($row['penerbit']) ?> (<?= htmlspecialchars($row['tahun_terbit']) ?>)</small>
                     </div>
-                </form>
-
-                <div class="alert alert-light border border-teal text-start d-inline-block mx-auto">
-                    <i class="fas fa-info-circle me-2" style="color: #20c997;"></i> <strong>Tips:</strong> Catat <em>Nomor Panggil (Call Number)</em> buku yang Anda temukan untuk mempermudah pencarian di rak.
                 </div>
             </div>
+            <?php endwhile; ?>
         </div>
     </div>
 </main>
-<script>if (typeof feather !== 'undefined') feather.replace();</script>
+<script>
+// Simple Live Search
+document.getElementById('searchKoleksi').addEventListener('keyup', function() {
+    let filter = this.value.toLowerCase();
+    let items = document.querySelectorAll('.filter-item');
+    items.forEach(function(item) {
+        let text = item.innerText.toLowerCase();
+        item.style.display = text.includes(filter) ? '' : 'none';
+    });
+});
+</script>

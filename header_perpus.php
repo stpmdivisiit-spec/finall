@@ -1,3 +1,4 @@
+<!-- C:\xampp\htdocs\FINAL\header_perpus.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -79,16 +80,7 @@
                         </div>
                     </li>
 
-<li class="nav-item dropdown no-caret">
-                        <a class="nav-link dropdown-toggle <?= in_array($mod, ['perpus_anggota_daftar', 'perpus_anggota_panduan', 'perpus_anggota_status']) ? 'active fw-bold text-teal' : 'text-dark' ?>" id="navKeanggotaan" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Keanggotaan 
-                        </a>
-                        <div class="dropdown-menu border-0 shadow animated--fade-in-up" aria-labelledby="navKeanggotaan">
-                            <a class="dropdown-item <?= ($mod=='perpus_anggota_daftar') ? 'active bg-teal text-white' : '' ?>" href="/FINAL/index.php?module=perpus_anggota_daftar" style="<?= ($mod=='perpus_anggota_daftar') ? 'background-color: #20c997;' : '' ?>">Pendaftaran Anggota</a>
-                            <a class="dropdown-item <?= ($mod=='perpus_anggota_panduan') ? 'active bg-teal text-white' : '' ?>" href="/FINAL/index.php?module=perpus_anggota_panduan" style="<?= ($mod=='perpus_anggota_panduan') ? 'background-color: #20c997;' : '' ?>">Panduan Akses Mahasiswa</a>
-                            <a class="dropdown-item <?= ($mod=='perpus_anggota_status') ? 'active bg-teal text-white' : '' ?>" href="/FINAL/index.php?module=perpus_anggota_status" style="<?= ($mod=='perpus_anggota_status') ? 'background-color: #20c997;' : '' ?>">Cek Status Peminjaman</a>
-                        </div>
-                    </li>
+
 
 <li class="nav-item dropdown no-caret">
                         <a class="nav-link dropdown-toggle <?= in_array($mod, ['perpus_info_berita', 'perpus_info_acara', 'perpus_info_galeri']) ? 'active fw-bold text-teal' : 'text-dark' ?>" id="navInfoPerpus" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

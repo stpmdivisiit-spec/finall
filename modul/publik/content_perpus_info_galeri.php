@@ -1,50 +1,48 @@
 <main>
     <header class="page-header page-header-dark bg-teal pb-10" style="background-color: #20c997;">
-        <div class="container-xl px-4">
-            <div class="page-header-content pt-4">
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-auto mt-4">
-                        <h1 class="page-header-title text-white">
-                            <div class="page-header-icon text-white"><i data-feather="camera"></i></div>
-                            Galeri Perpustakaan
-                        </h1>
-                        <div class="page-header-subtitle text-white-50">Potret ruang baca, aktivitas pemustaka, dan fasilitas unggulan kami.</div>
-                    </div>
-                </div>
-            </div>
+        <div class="container-xl px-4 pt-5">
+            <h1 class="page-header-title text-white fw-bold"><i class="fas fa-images me-3"></i>Galeri Perpustakaan</h1>
+            <p class="page-header-subtitle text-white-50">Kumpulan momen dan dokumentasi kegiatan UPT Perpustakaan.</p>
         </div>
     </header>
+    
     <div class="container-xl px-4 mt-n10 mb-5">
-        <div class="row gx-4">
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card shadow-sm border-0 h-100 lift">
-                    <img src="/FINAL/assets/img/demo/demo-ocean-sm.jpg" class="card-img-top" style="height: 220px; object-fit: cover;" alt="Ruang Baca">
-                    <div class="card-body p-3 text-center">
-                        <h6 class="fw-bold text-dark mb-1">Suasana Ruang Baca Lesehan</h6>
+        <div class="card border-0 shadow-sm bg-white p-4 p-md-5">
+            <div class="row g-4">
+                <?php
+                $query = $koneksi->query("SELECT * FROM perpus_info_galeri ORDER BY id DESC");
+                if($query->num_rows > 0):
+                    while ($row = $query->fetch_assoc()) :
+                        $foto = "uploads/perpustakaan/informasi/" . $row['file_foto'];
+                ?>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                    <div class="position-relative hover-lift">
+                        <a href="<?= $foto ?>" data-toggle="lightbox" data-gallery="perpus-gallery" data-caption="<?= htmlspecialchars($row['judul_foto']) ?>">
+                            <img src="<?= $foto ?>" class="img-fluid w-100 rounded-4 shadow-sm" style="height: 250px; object-fit: cover;" alt="Galeri">
+                        </a>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card shadow-sm border-0 h-100 lift">
-                    <img src="/FINAL/assets/img/demo/cards/card-img-top.jpg" class="card-img-top" style="height: 220px; object-fit: cover;" alt="OPAC">
-                    <div class="card-body p-3 text-center">
-                        <h6 class="fw-bold text-dark mb-1">Terminal Komputer Katalog OPAC</h6>
+                <?php 
+                    endwhile;
+                else:
+                ?>
+                    <div class="col-12 text-center text-muted py-5">
+                        <i class="fas fa-camera-retro fa-4x opacity-50 mb-3"></i>
+                        <h5>Galeri dokumentasi belum tersedia.</h5>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card shadow-sm border-0 h-100 lift">
-                    <img src="/FINAL/assets/img/demo/cards/card-img-left.jpg" class="card-img-top" style="height: 220px; object-fit: cover;" alt="Rak Buku">
-                    <div class="card-body p-3 text-center">
-                        <h6 class="fw-bold text-dark mb-1">Rak Koleksi Buku Ilmu Pemerintahan</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="text-center mt-4">
-            <button class="btn text-white rounded-pill px-4 fw-bold shadow-sm" style="background-color: #20c997;"><i class="fas fa-sync-alt me-2"></i>Muat Lebih Banyak</button>
         </div>
     </div>
 </main>
+
+
 <script>if (typeof feather !== 'undefined') feather.replace();</script>
+
+<style>
+/* Efek Lift & Bayangan Halus pada Gambar Saat Di-hover */
+.hover-lift { transition: transform 0.3s ease-in-out; }
+.hover-lift:hover { transform: scale(1.03); }
+/* Pastikan sudut gambar tetap membulat (rounded corners) secara sempurna */
+.rounded-4 { border-radius: 1rem !important; }
+</style>

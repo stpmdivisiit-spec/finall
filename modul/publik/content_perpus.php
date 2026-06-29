@@ -1,13 +1,19 @@
+<?php
+// Ambil data pengaturan dinamis dari database
+$pengaturan = $koneksi->query("SELECT * FROM perpus_pengaturan WHERE id = 1")->fetch_assoc();
+?>
 <main>
-    <header class="page-header page-header-dark bg-dark pb-10" style="background-image: url('assets/img/demo/demo-ocean-lg.jpg'); background-size: cover; background-position: center; position: relative;">
+    <header class="page-header page-header-dark bg-dark pb-10" style="background-image: url('assets/img/demo/<?= $pengaturan['bg_header'] ?>'); background-size: cover; background-position: center; position: relative;">
         <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6);"></div>
         
         <div class="container-xl px-4" style="position: relative; z-index: 2;">
             <div class="page-header-content pt-5 text-center">
                 <h1 class="page-header-title text-white mb-3">
-                    UPT Perpustakaan STPM Santa Ursula
+                    <?= htmlspecialchars($pengaturan['nama_perpus']) ?>
                 </h1>
-                <p class="page-header-subtitle text-white-50 mb-4">Pusat Referensi, Literasi Akademik, dan Repository Kampus.</p>
+                <p class="page-header-subtitle text-white-50 mb-4">
+                    <?= htmlspecialchars($pengaturan['deskripsi']) ?>
+                </p>
                 
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
@@ -70,19 +76,19 @@
                         <ul class="list-unstyled mb-0">
                             <li class="d-flex justify-content-between border-bottom border-white-50 pb-2 mb-2">
                                 <span>Senin - Kamis</span>
-                                <strong>08:00 - 15:00</strong>
+                                <strong><?= htmlspecialchars($pengaturan['jam_senin_kamis']) ?></strong>
                             </li>
                             <li class="d-flex justify-content-between border-bottom border-white-50 pb-2 mb-2">
                                 <span>Jumat</span>
-                                <strong>08:00 - 14:00</strong>
+                                <strong><?= htmlspecialchars($pengaturan['jam_jumat']) ?></strong>
                             </li>
                             <li class="d-flex justify-content-between">
                                 <span>Sabtu & Minggu</span>
-                                <strong class="text-warning">TUTUP</strong>
+                                <strong class="text-warning"><?= htmlspecialchars($pengaturan['jam_sabtu_minggu']) ?></strong>
                             </li>
                         </ul>
                         <div class="mt-4 pt-3 border-top border-white-50 text-center">
-                            <a href="#" class="btn btn-light btn-sm rounded-pill px-4">Syarat Keanggotaan</a>
+                            <a href="<?= htmlspecialchars($pengaturan['link_syarat']) ?>" class="btn btn-light btn-sm rounded-pill px-4">Syarat Keanggotaan</a>
                         </div>
                     </div>
                 </div>

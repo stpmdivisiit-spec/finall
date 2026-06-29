@@ -19,7 +19,31 @@ switch ($act) {
         if (file_exists('modul/lpm/dokumen_proses.php')) include 'modul/lpm/dokumen_proses.php';
         break;
         
-    case 'hapus_dokumen':
+// Buka file FINAL/index.php dan pastikan rutenya seperti ini:
+    
+    // Kebijakan Mutu diarahkan ke file desain custom yang baru kita buat
+    case 'lpm_kebijakan': 
+        include 'modul/publik/content_lpm_kebijakan.php'; 
+        break;
+
+    // Sisa Dokumen Mutu diarahkan ke Template Tabel Dinamis
+    case 'lpm_manual': 
+        $kat_lpm = 'manual_mutu'; 
+        include 'modul/publik/content_lpm_dokumen.php'; 
+        break;
+        
+    case 'lpm_standar': 
+        $kat_lpm = 'standar_mutu'; 
+        include 'modul/publik/content_lpm_dokumen.php'; 
+        break;
+        
+    case 'lpm_formulir': 
+        $kat_lpm = 'formulir_sop'; 
+        include 'modul/publik/content_lpm_dokumen.php'; 
+        break;
+
+
+case 'hapus_dokumen':
         $id = (int)$_GET['id'];
         $kat = $_GET['kat']; 
         
